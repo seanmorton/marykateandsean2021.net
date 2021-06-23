@@ -1,0 +1,109 @@
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-image: url("fern_canyon.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: none;
+  font-family: brandon_grotesque;
+  font-size: 22px;
+  text-rendering: optimizeLegibility;
+}
+
+nav {
+  color: #ffd002;
+  background-color: #0d2a70;
+  text-align: center;
+  font-size: 22px;
+}
+
+.content {
+  max-width: 1024px;
+  min-height: 1024px;
+  margin: auto;
+  background-color: #f6f7f6;
+  border: 1px solid #232323;
+}
+
+h2, h3, h4, h5, h6 {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+p {
+  margin-bottom: 12px;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.contentSection {
+  margin-top: 20px;
+  border-top: 1px solid #232323;
+  border-bottom: 1px solid #232323;
+  background-color: #fefffe;
+  padding: 25px;
+}
+
+.contentSection:first-child {
+  margin-top: 0;
+}
+
+.contentSection.alert {
+  color: red;
+  background-color: black;
+  text-align: center;
+}
+
+.contentSection.alert a {
+  color: cyan;
+}
+
+.pull-left {
+  float: left;
+  padding-right: 25px;
+}
+
+.pull-right {
+  float: right;
+  padding-left: 25px;
+}
+
+.clear {
+  clear: both;
+  display: block;
+}
+
+#title {
+  text-align: center;
+  font-family: 'Brush Script MT', cursive;
+  font-size: 48px;
+}
+
+#welcomeMessage {
+  text-align: center;
+}
+
+#countdown {
+  font-family: courier;
+  font-size: 16px;
+  color: #00ff00;
+  background-color: #282928;
+  padding: 5px;
+  border: 1px ridge;
+}

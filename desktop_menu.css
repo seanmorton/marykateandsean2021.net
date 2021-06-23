@@ -1,0 +1,14 @@
+#desktopMenu li {
+  display: inline;
+  padding: 0 10px;
+}
+
+#desktopMenu a {
+  color: #ffd002;
+  transition: color 0.3s ease;
+  text-decoration: none;
+}
+
+#desktopMenu a:hover, #desktopMenu a.current-page {
+  color: #f16c00;
+}

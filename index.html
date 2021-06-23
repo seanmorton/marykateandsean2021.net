@@ -1,0 +1,108 @@
+<head>
+  <title>
+  Mary Kate &amp; Sean 2021
+  </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=yes">
+  <link rel="stylesheet" media="all" href="fonts.css">
+  <link rel="stylesheet" media="all" href="style.css">
+  <link rel="stylesheet" media="all" href="desktop_menu.css">
+  <link rel="stylesheet" media="all" href="mobile_menu.css">
+  <link rel="stylesheet" media="all" href="media.css">
+</head>
+<body>
+  <nav role="navigation">
+    <div id="title">Mary Kate &amp; Sean 2021</div>
+    <div id="desktopMenu">
+      <hr />
+      <ul>
+        <a href="" class="current-page"><li>Home</li></a>
+        <a href="rsvp.html"><li>R.S.V.P.</li></a>
+        <a href="travel.html"><li>Travel</li></a>
+        <a href="schedule.html"><li>Schedule</li></a>
+        <a href="registry.html"><li>Registry</li></a>
+        <a href="wedding_party.html"><li>Wedding Party</li></a>
+        <a href="photos.html"><li>Photos</li></a>
+        <a href="activities.html"><li>Things To Do</li></a>
+        <a href="games.html"><li>Play Games</li></a>
+      </ul>
+    </div>
+    <div id="mobileMenu">
+      <input type="checkbox" />
+      <span></span>
+      <span></span>
+      <span></span>
+
+      <ul id="mobileLinks">
+        <a href=""><li>Home</li></a>
+        <a href="rsvp.html"><li>R.S.V.P.</li></a>
+        <a href="travel.html"><li>Travel</li></a>
+        <a href="schedule.html"><li>Schedule</li></a>
+        <a href="registry.html"><li>Registry</li></a>
+        <a href="wedding_party.html"><li>Wedding Party</li></a>
+        <a href="photos.html"><li>Photos</li></a>
+        <a href="activities.html"><li>Things To Do</li></a>
+        <a href="games.html"><li>Play Games</li></a>
+      </ul>
+    </div>
+  </nav>
+  <div class="content">
+    <img src="us.jpg" alt="picture of Mary Kate & Sean" width=100% />
+    <div class="contentSection alert">
+      <h3>&#9888;&#65039;&nbsp;ALERT: Please <a href="travel.html">book hotels</a> ASAP! &#9888;&#65039</h3>
+      <p>Sierra Nevada rescheduled Oktoberfest to our wedding weekend, and hotels will book out soon.</p>
+    </div>
+
+    <div class="contentSection">
+      <h3>October 9, 2021, Chico, CA</h3>
+      <p id=welcomeMessage>
+        You're invited to celebrate the marriage of Mary Kate and Sean! There's only<br />
+        <span id=countdown>...</span> to go.
+      </p>
+    </div>
+
+    <div class="contentSection">
+      <h3>Our Story</h3>
+      <p>
+        We met back in Summer 2016 when Sean had first moved to San Francisco and Mary Kate had started summer break from CSU Chico. Sean was just about to take a break from Tinder after a bunch of bad dates, and Mary Kate had just signed up on Tinder looking for a practice date to help prepare for another date she had recently been asked out on. She thought Sean was one of the least-sketchy-looking guys she'd seen on Tinder, and Sean thought she was love at first sight, calling her "Lassie" in his first DM to her. On the practice date, Sean melted Mary Kate's heart with his Midwestern manners, and she won Sean over by introducing him to a delicious local sausage restaurant. The date went well enough that Mary Kate cancelled her other date and we've been dating ever since.
+      </p>
+      <p>
+        Once summer was over Mary Kate went back to attend classes at CSU Chico and Sean visited every two weeks by car. We also stayed in touch via handwritten letters which was very romantic and also way less of a hassle compared to texting.
+      </p>
+      <p>
+        After Mary Kate graduated from CSU Chico, we moved in together in San Francisco and it wasn't soon after that we got engaged. Now that the pandemic is finally ending, we couldn't be more excited to celebrate our wedding with all of you!
+      </p>
+    </div>
+  </div>
+</body>
+<footer>
+  <script>
+    // Courtesy of https://www.w3schools.com/howto/howto_js_countdown.asp
+    var countDownDate = new Date("2021-10-09T14:00:00-07:00").getTime();
+
+    var timer = setInterval(function() {
+      var now = new Date().getTime();
+      var distance = countDownDate - now;
+
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+
+      document.getElementById("countdown").innerHTML = days + " days, " + hours + " hours, "
+      + minutes + " minutes, and " + seconds + " seconds";
+
+      // If the count down is finished, write some text
+      if (distance < 0) {
+        clearInterval(timer);
+        var oneDayAgo = -(1000 * 60 * 60 * 24);
+        if (distance >= oneDayAgo) {
+          document.getElementById("welcomeMessage").innerHTML = "Congrats Mary Kate & Sean, it's time to party!!!!";
+        } else {
+          document.getElementById("welcomeMessage").innerHTML = "What a great wedding. Thank you for attending!";
+        }
+      }
+    }, 1000);5
+  </script>
+</footer>
