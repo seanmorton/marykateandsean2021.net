@@ -1,0 +1,130 @@
+/*
+ * Adapted from https://codepen.io/erikterwan/pen/EVzeRP, thanks Erik!
+ */
+#mobileMenu
+{
+  display: block;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+
+#mobileMenu input
+{
+  display: block;
+  width: 40px;
+  height: 32px;
+  position: absolute;
+  top: -7px;
+  left: -5px;
+  cursor: pointer;
+  opacity: 0; /* hide this */
+  z-index: 2; /* and place it over the hamburger */
+  -webkit-touch-callout: none;
+}
+
+/*
+ * Just a quick hamburger
+ */
+#mobileMenu span
+{
+  background: #ffd002;
+  display: block;
+  width: 33px;
+  height: 4px;
+  margin-bottom: 7px;
+  position: relative;
+  border-radius: 2px;
+  z-index: 1;
+  transform-origin: 4px 0px;
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              opacity 0.55s ease;
+}
+
+
+#mobileMenu span:first-child
+{
+  transform-origin: 0% 0%;
+}
+
+#mobileMenu span:nth-last-child(2)
+{
+  transform-origin: 0% 100%;
+}
+
+/*
+ * Transform all the slices of hamburger
+ * into a crossmark.
+ */
+#mobileMenu input:checked ~ span
+{
+  opacity: 1;
+  transform: rotate(45deg) translate(-1px, 0);
+  background: #232323;
+}
+
+/*
+ * But let's hide the middle one.
+ */
+#mobileMenu input:checked ~ span:nth-last-child(3)
+{
+  opacity: 0;
+  transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+/*
+ * Ohyeah and the last one should go the other direction
+ */
+#mobileMenu input:checked ~ span:nth-last-child(2)
+{
+  transform: rotate(-45deg) translate(2px, -2px);
+}
+
+/*
+ * Make this absolute positioned
+ * at the top left of the screen
+ */
+#mobileLinks
+{
+  position: absolute;
+  width: 300px;
+  margin: -100px 0 0 -50px;
+  padding: 50px;
+  padding-top: 125px;
+  background: #cdcdcd;
+  border: 4px ridge #0d2a70;
+  list-style-type: none;
+  -webkit-font-smoothing: antialiased;
+  /* to stop flickering of text in safari */
+  transform-origin: 0% 0%;
+  transform: translate(-100%, 0);
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+}
+
+#mobileLinks li
+{
+  padding: 10px 0;
+  font-size: 22px;
+  border-bottom: 1px solid #232323;
+}
+
+#mobileLinks a {
+  color: #232323;
+}
+
+#mobileLinks a:hover {
+  color: #f16c00;
+}
+
+/*
+ * And let's slide it in from the left
+ */
+#mobileMenu input:checked ~ ul
+{
+  transform: none;
+}
