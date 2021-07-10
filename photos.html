@@ -82,20 +82,27 @@
 
       var photos = [
         {
-          src: "images/us.jpg",
+          img: mkImg("images/us.jpg"),
           desc: "Sean and Mary Kate on their patio."
         },
         {
-          src: "images/fern_canyon.jpg",
+          img: mkImg("images/fern_canyon.jpg"),
           desc: "The beautiful Fern Canyon in Northern California. "
         }
       ]
+
+      // Create an image element for each photo so it preloads
+      function mkImg(src) {
+        var img = new Image();
+        img.src = src;
+        return img
+      }
 
       function setCurrentPhoto(newPhotoIdx) {
         if (newPhotoIdx < 0 || newPhotoIdx >= photos.length) { return; }
 
         // Set the new current photo
-        currentPhoto.src = photos[newPhotoIdx].src;
+        currentPhoto.src = photos[newPhotoIdx].img.src;
         currentPhoto.alt = photos[newPhotoIdx].desc;
         currentPhotoDesc.innerHTML = photos[newPhotoIdx].desc;
 
