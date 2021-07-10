@@ -34,7 +34,7 @@
 {
   background: #ffd002;
   display: block;
-  width: 30px;
+  width: 28px;
   height: 2px;
   margin-bottom: 6px;
   position: relative;
@@ -64,7 +64,7 @@
 #mobileMenu input:checked ~ span
 {
   opacity: 1;
-  transform: rotate(45deg) translate(-4px, -4px);
+  transform: rotate(45deg) translate(-4px, -2px);
   background: #232323;
 }
 
@@ -82,7 +82,7 @@
  */
 #mobileMenu input:checked ~ span:nth-last-child(2)
 {
-  transform: rotate(-45deg) translate(2px, -2px);
+  transform: rotate(-45deg) translate(2px, -3px);
 }
 
 /*
