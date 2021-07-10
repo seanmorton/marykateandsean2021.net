@@ -20,4 +20,9 @@
   nav {
     text-align: left;
   }
+
+  .content {
+    padding-top: 40px;
+    overflow-x: hidden;
+  }
 }
