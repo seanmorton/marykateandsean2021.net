@@ -9,6 +9,7 @@
   <link rel="stylesheet" media="all" href="stylesheets/desktop_menu.css">
   <link rel="stylesheet" media="all" href="stylesheets/mobile_menu.css">
   <link rel="stylesheet" media="all" href="stylesheets/media.css">
+  <link rel="stylesheet" media="all" href="stylesheets/photo_album.css">
 </head>
 <body>
   <nav role="navigation">
@@ -48,7 +49,81 @@
   </nav>
   <div class="content">
     <div class="contentSection">
-      <h3>Coming Soon!</h3>
+      <table id="photoAlbum">
+        <thead>
+          <tr>
+            <th class="prev">
+            <th class="photo">
+            <th class="next">
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><button id="prevPhoto" style="display: none;">&lt;</button></td>
+            <td><img id="currentPhoto" src=""></td>
+            <td><button id="nextPhoto" style="display: none">&gt;</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <br />
+      <div style="text-align: center;">
+        <p id="currentPhotoDesc"></p>
+      </div>
     </div>
   </div>
 </body>
+<footer>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var currentPhoto = document.getElementById('currentPhoto');
+      var currentPhotoDesc = document.getElementById('currentPhotoDesc');
+      var nextPhoto = document.getElementById('nextPhoto');
+      var prevPhoto = document.getElementById('prevPhoto');
+
+      var photos = [
+        {
+          src: "images/us.jpg",
+          desc: "Sean and Mary Kate on their patio."
+        },
+        {
+          src: "images/fern_canyon.jpg",
+          desc: "The beautiful Fern Canyon in Northern California. "
+        }
+      ]
+
+      function setCurrentPhoto(newPhotoIdx) {
+        if (newPhotoIdx < 0 || newPhotoIdx >= photos.length) { return; }
+
+        // Set the new current photo
+        currentPhoto.src = photos[newPhotoIdx].src;
+        currentPhoto.alt = photos[newPhotoIdx].desc;
+        currentPhotoDesc.innerHTML = photos[newPhotoIdx].desc;
+
+        // Update the button state
+        switch(newPhotoIdx) {
+          case 0:
+            nextPhoto.style.display = 'inline';
+            prevPhoto.style.display = 'none';
+            break;
+          case (photos.length - 1):
+            nextPhoto.style.display = 'none';
+            prevPhoto.style.display = 'inline';
+            break;
+          default:
+            nextPhoto.style.display = 'inline';
+            prevPhoto.style.display = 'inline';
+        }
+
+        return newPhotoIdx;
+      }
+
+      var currentPhotoIdx = setCurrentPhoto(0);
+      nextPhoto.addEventListener('click', function() {
+        currentPhotoIdx = setCurrentPhoto(currentPhotoIdx + 1);
+      });
+      prevPhoto.addEventListener('click', function() {
+        currentPhotoIdx = setCurrentPhoto(currentPhotoIdx - 1);
+      });
+    });
+  </script>
+</footer>

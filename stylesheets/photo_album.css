@@ -1,0 +1,26 @@
+#photoAlbum {
+  table-layout: fixed;
+  width: 100%;
+  white-space: nowrap;
+}
+#photoAlbum td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+#photoAlbum th.prev {
+  width: 10%;
+}
+#photoAlbum th.next {
+  width: 10%;
+}
+#photoAlbum th.photo {
+  width: 80%;
+}
+#photoAlbum #currentPhoto {
+  width: 100%;
+}
+#photoAlbum #currentPhotoDesc {
+  text-align: center;
+}
