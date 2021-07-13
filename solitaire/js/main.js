@@ -55,13 +55,17 @@ document.getElementById('startGame').addEventListener('click', startGame);
 /*----- functions -----*/
 
 function startGame() {
+  playerName = playerNameInputEl.value
+  if (!!!playerName) {
+      alert("Please enter your name to start the game.");
+      return;
+  }
+  playerNameEl.innerHTML = playerName
+  gameStarted = true;
+
   playerNameFormEl.style.display = 'none';
   resetButtonEl.style.display = 'block';
 
-  playerName = playerNameInputEl.value || defaultPlayerName();
-  playerNameEl.innerHTML = playerName
-
-  gameStarted = true;
   init();
 }
 
@@ -686,10 +690,6 @@ function winGame() {
         }
     })
     render();
-}
-
-function defaultPlayerName() {
-  return "Player " + Math.floor((Math.random() * 1000) + 1);
 }
 
 function uuidv4() {
