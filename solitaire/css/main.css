@@ -9,7 +9,6 @@ body {
     justify-content: flex-start;
     align-items: center;
     font-family: 'Grenze', serif;
-    height: 100vh;
     font-size: 2.5vw;
     background-color: #006600;
     border: 4px groove #f2d273;
@@ -36,6 +35,27 @@ h1 {
     position: relative;
 }
 
+.gameControls {
+    display: flex;
+    justify-content: left;
+    margin: 1vh 0 auto 0;
+    width: 48vw;
+    margin-bottom: 5vh;
+}
+
+#resetButton {
+  margin-right: 3vw;
+}
+
+#timer {
+    color: lightgrey;
+}
+
+#score {
+    margin-right: 3vw;
+    color: lightgrey;
+}
+
 #topRow {
     display: flex;
 }
@@ -46,23 +66,7 @@ h1 {
 
 #bottomRow {
     display: flex;
-}
-
-#gameControls {
-    display: flex;
-    justify-content: left;
-    margin: 1vh 0 auto 0;
-    width: 48vw;
-}
-
-#timer {
-    margin-right: auto;
-    color: lightgrey;
-}
-
-#score {
-    margin-right: 3vw;
-    color: lightgrey;
+    margin-bottom: 38vh;
 }
 
 button {
