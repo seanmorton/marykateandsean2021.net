@@ -611,7 +611,7 @@ function startTimer() {
 function stopTimer() {
     secondsPlayed = null;
     clearInterval(counter);
-    timerEl.textContent = `time - 0:00`;
+    timerEl.textContent = `time: 0:00`;
 }
 
 function count() {
@@ -625,7 +625,7 @@ function count() {
     minutes = (Math.floor(secondsPlayed / 60)) - (hours * 60);
     seconds = secondsPlayed - (minutes * 60);
 
-    timerEl.textContent = `time - ${hours > 0 ? `${hours}:` : ''}${minutes < 10 && hours > 0 ? `0${minutes}`: minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
+    timerEl.textContent = `time: ${hours > 0 ? `${hours}:` : ''}${minutes < 10 && hours > 0 ? `0${minutes}`: minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
 }
 
 function startAutoSave() {
