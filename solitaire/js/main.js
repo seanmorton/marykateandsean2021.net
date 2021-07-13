@@ -19,7 +19,7 @@ const values = ['A', '02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 
 /*----- app's state (variables) -----*/
 
 let deck, pile, draw, stacks, aces, winner, clickedCard, firstClickDest, firstStackId,
-cardArr, secondsPlayed, counter, boardScore, totalScore, autoSavedScore, drawCycles, clickCount;
+cardArr, secondsPlayed, counter, boardScore, totalScore, autoSavedScore, gameId, drawCycles, clickCount;
 
 /*----- cached element references -----*/
 
@@ -69,6 +69,7 @@ function init() {
     boardScore = 0;
     totalScore = 0;
     autoSavedScore = 0;
+    gameId = uuidv4();
     drawCycles = 0;
     playerName = null;
     makeDeck();
@@ -627,10 +628,11 @@ function autoSave() {
 
   saveStatusEl.textContent = 'saving score..'
   let xhr = new XMLHttpRequest();
-  xhr.open("PUT", "http://marykateandsean2021.net/rsvp_app/game_scores")
+  xhr.open("POST", "http://marykateandsean2021.net/rsvp_app/game_scores")
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.send(JSON.stringify({
     game: "SOLITAIRE",
+    gameId: gameId,
     playerName: playerName,
     score: totalScore,
     timeSeconds: secondsPlayed
@@ -677,4 +679,10 @@ function winGame() {
         }
     })
     render();
+}
+
+function uuidv4() {
+  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+  );
 }
