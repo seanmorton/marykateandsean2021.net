@@ -57,8 +57,10 @@ document.getElementById('startGame').addEventListener('click', startGame);
 function startGame() {
   playerNameFormEl.style.display = 'none';
   resetButtonEl.style.display = 'block';
-  playerName = playerNameInputEl.value;
-  playerNameEl.innerHTML = playerName || defaultPlayerName();
+
+  playerName = playerNameInputEl.value || defaultPlayerName();
+  playerNameEl.innerHTML = playerName
+
   gameStarted = true;
   init();
 }
