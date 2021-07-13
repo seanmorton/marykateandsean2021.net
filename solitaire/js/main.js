@@ -58,7 +58,7 @@ function startGame() {
   playerNameFormEl.style.display = 'none';
   resetButtonEl.style.display = 'block';
   playerName = playerNameInputEl.value;
-  playerNameEl.innerHTML = playerName || "Player 1"
+  playerNameEl.innerHTML = playerName || defaultPlayerName();
   gameStarted = true;
   init();
 }
@@ -684,6 +684,10 @@ function winGame() {
         }
     })
     render();
+}
+
+function defaultPlayerName() {
+  return "Player " + Math.floor((Math.random() * 1000) + 1);
 }
 
 function uuidv4() {
