@@ -625,8 +625,8 @@ function count() {
 }
 
 function startAutoSave() {
-  // Check to save the score every 5s
-  setInterval(autoSave, 5 * 1000)
+  // Check to save the score every 10s
+  setInterval(autoSave, 10 * 1000)
 }
 
 // Save the score if it's an updated score that's > 0
