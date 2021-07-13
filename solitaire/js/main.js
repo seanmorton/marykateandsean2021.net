@@ -639,7 +639,7 @@ function autoSave() {
       saveStatusEl.textContent = 'Error saving score!';
     } else {
       autoSavedScore = totalScore;
-      saveStatusEl.textContent = '';
+      setTimeout(function() { saveStatusEl.textContent = ''; }, 2 * 1000);
     }
   };
   xhr.onerror = function() {
