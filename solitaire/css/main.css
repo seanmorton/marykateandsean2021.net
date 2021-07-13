@@ -38,7 +38,7 @@ h1 {
     display: flex;
     justify-content: left;
     margin: 1vh 0 auto 0;
-    width: 48vw;
+    width: 80vw;
     margin-bottom: 5vh;
 }
 
@@ -46,11 +46,7 @@ h1 {
   margin-right: 3vw;
 }
 
-#timer {
-    color: lightgrey;
-}
-
-#score {
+#saveStatus, #timer, #score, #playerName {
     margin-right: 3vw;
     color: lightgrey;
 }

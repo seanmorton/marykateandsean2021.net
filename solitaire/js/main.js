@@ -19,7 +19,7 @@ const values = ['A', '02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 
 /*----- app's state (variables) -----*/
 
 let deck, pile, draw, stacks, aces, winner, clickedCard, firstClickDest, firstStackId,
-cardArr, secondsPlayed, counter, boardScore, totalScore, drawCycles, clickCount;
+cardArr, secondsPlayed, counter, boardScore, totalScore, autoSavedScore, drawCycles, clickCount;
 
 /*----- cached element references -----*/
 
@@ -39,8 +39,10 @@ const boardEls = {
     stack7: document.getElementById('stack7')
 }
 
-const timerEl = document.getElementById('timer');
+const playerNameEl = document.getElementById('playerName');
 const scoreEl = document.getElementById('score');
+const timerEl = document.getElementById('timer');
+const saveStatusEl = document.getElementById('saveStatus');
 
 /*----- event listeners -----*/
 
@@ -66,11 +68,19 @@ function init() {
     counter = null;
     boardScore = 0;
     totalScore = 0;
+    autoSavedScore = 0;
     drawCycles = 0;
+    playerName = null;
     makeDeck();
     shuffleDeck();
     dealCards();
     render();
+    promptPlayerName();
+}
+
+function promptPlayerName() {
+  playerName = prompt("Enter your name (for keeping score):")
+  playerNameEl.textContent = playerName
 }
 
 function render() {
@@ -83,7 +93,7 @@ function render() {
     updateScore();
     if(checkWinner()) {
         clearInterval(counter);
-        document.querySelector('h1').textContent = 'You Win!';
+        alert("YOU WIN!!! \n\nYour score has been recorded.");
     }
 }
 
@@ -223,9 +233,10 @@ function handleClick(evt) {
 
     let clickDest = getClickDestination(evt.target);
 
-    // start the timer on user's first click
+    // start the timer and autosave on user's first click
     if(!counter && clickDest !== 'resetButton') {
         startTimer();
+        startAutoSave();
     }
 
     if (clickDest.includes('stack')) {
@@ -238,10 +249,6 @@ function handleClick(evt) {
         handlePileClick();
     } else if (clickDest === 'resetButton') {
         init();
-    } else {
-      // Unselect card if clicked outside of anything
-      clickedCard = null;
-      render()
     }
 }
 
@@ -607,6 +614,37 @@ function count() {
     seconds = secondsPlayed - (minutes * 60);
 
     timerEl.textContent = `time - ${hours > 0 ? `${hours}:` : ''}${minutes < 10 && hours > 0 ? `0${minutes}`: minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
+}
+
+function startAutoSave() {
+  // Check to save the score every 5s
+  setInterval(autoSave, 5 * 1000)
+}
+
+// Save the score if it's an updated score that's > 0
+function autoSave() {
+  if (totalScore <= 0 || autoSavedScore === totalScore) { return };
+
+  saveStatusEl.textContent = 'Saving score..'
+  let xhr = new XMLHttpRequest();
+  xhr.open("PUT", "http://marykateandsean2021.net/rsvp_app/game_scores")
+  xhr.send({
+    game: "SOLITAIRE",
+    playerName: playerName,
+    score: totalScore,
+    timeSeconds: secondsPlayed
+  })
+  xhr.onload = function() {
+    if (xhr.status != 200) {
+      saveStatusEl.textContent = 'Error saving score!';
+    } else {
+      autoSavedScore = totalScore;
+      saveStatusEl.textContent = '';
+    }
+  };
+  xhr.onerror = function() {
+    saveStatusEl.textContent = 'Error saving score!';
+  };
 }
 
 function isFaceUpCard(element) {
