@@ -11,8 +11,14 @@
     <script defer src="js/main.js"></script>
 </head>
   <body>
-      <section id="gameBoard">
-          <section class="gameControls">
+      <section id="playerNameForm">
+        <label for="playerNameInput">Enter your name:</label>
+        <input id="playerNameInput" type="text" placeholder=" (for keeping score)"></input>
+        <br />
+        <button id="startGame">Start Game</button>
+      </section>
+      <section id="gameBoard" style="display:none;">
+          <section id="gameControls">
               <button id="resetButton">New Game</button>
               <div id="playerName"></div>
               <div id="score">score - 0</div>

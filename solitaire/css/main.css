@@ -19,6 +19,14 @@ h1 {
     font-size: 3.5vw;
 }
 
+#playerNameForm {
+  color: lightgrey;
+}
+
+#playerNameInput {
+  font-size: 2.0vw;
+}
+
 #pile {
     cursor: pointer;
 }
@@ -34,7 +42,7 @@ h1 {
     position: relative;
 }
 
-.gameControls {
+#gameControls {
     display: flex;
     justify-content: left;
     margin: 1vh 0 auto 0;

@@ -39,7 +39,10 @@ const boardEls = {
     stack7: document.getElementById('stack7')
 }
 
+const playerNameFormEl = document.getElementById('playerNameForm');
+const playerNameInputEl = document.getElementById('playerNameInput');
 const playerNameEl = document.getElementById('playerName');
+const gameBoardEl = document.getElementById('gameBoard');
 const scoreEl = document.getElementById('score');
 const timerEl = document.getElementById('timer');
 const saveStatusEl = document.getElementById('saveStatus');
@@ -47,10 +50,17 @@ const saveStatusEl = document.getElementById('saveStatus');
 /*----- event listeners -----*/
 
 document.querySelector('body').addEventListener('click', handleClick);
+document.getElementById('startGame').addEventListener('click', startGame);
 
 /*----- functions -----*/
 
-init();
+function startGame() {
+  gameBoardEl.style.display = 'block';
+  playerNameFormEl.style.display = 'none';
+  playerName = playerNameInputEl.value;
+  playerNameEl.innerHTML = playerName || "Player 1"
+  init();
+}
 
 function init() {
     stopTimer();
@@ -71,17 +81,10 @@ function init() {
     autoSavedScore = 0;
     gameId = uuidv4();
     drawCycles = 0;
-    playerName = null;
     makeDeck();
     shuffleDeck();
     dealCards();
     render();
-    promptPlayerName();
-}
-
-function promptPlayerName() {
-  playerName = prompt("Enter your name (for keeping score):")
-  playerNameEl.textContent = playerName
 }
 
 function render() {
