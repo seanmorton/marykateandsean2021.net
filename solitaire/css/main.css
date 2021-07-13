@@ -25,14 +25,14 @@ h1 {
     cursor: pointer;
 }
 
-#game-board {
+#gameBoard {
     display: flex;
     flex-direction: column;
     align-items: stretch;
     padding: 20px 20px 20px 20px;
 }
 
-#game-board section div {
+#gameBoard section div {
     position: relative;
 }
 
@@ -46,10 +46,9 @@ h1 {
 
 #bottomRow {
     display: flex;
-    margin-bottom: 38vh;
 }
 
-footer {
+#gameControls {
     display: flex;
     justify-content: left;
     margin: 1vh 0 auto 0;
