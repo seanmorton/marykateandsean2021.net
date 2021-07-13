@@ -59,6 +59,26 @@
       style="border: 4px groove #f2d273;"
       onload="setIframeHeight(this.id)">
     </iframe>
+    <div class="contentSection">
+      <h2>High Scores</h2>
+      <p>The guest with the highest score will receive special recognition at the wedding!</p>
+      <table id="highScores" border="1" cellpadding="5">
+        <thead>
+          <tr>
+            <th align="left">Name</th>
+            <th align="left">Score</th>
+            <th align="left">Time</th>
+          </tr>
+        </thead>
+        <tbody>
+            <td>Test</td>
+            <td>94</td>
+            <td>32:22</td>
+        </tbody>
+      </table>
+      <br />
+      <p>Special thanks to <a href="https://github.com/joe-gerhard/Solitaire", target="_blank">Joe Gerhard</a>, who wrote the majority of this game which I have slightly modified for this site.</p>
+    </div>
   </div>
 </body>
 <footer>
@@ -70,7 +90,7 @@
           ifrm.contentWindow.document;
       ifrm.style.visibility = 'hidden';
       ifrm.style.height = "10px"; // reset to minimal height ...
-      // IE opt. for bing/msn needs a bit added or scrollbar appears
+      // Add extra height so the cards don't get hidden
       ifrm.style.height = getDocHeight( doc ) + 200 + "px";
       ifrm.style.visibility = 'visible';
     }

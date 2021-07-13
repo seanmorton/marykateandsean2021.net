@@ -113,3 +113,8 @@ a:hover {
   padding: 5px;
   border: 1px ridge;
 }
+
+table#highScores {
+  width: 100%;
+  border-spacing: 3px;
+}
