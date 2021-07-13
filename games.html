@@ -25,7 +25,7 @@
         <a href="wedding_party.html"><li>Wedding Party</li></a>
         <a href="photos.html"><li>Photos</li></a>
         <a href="activities.html"><li>Things To Do</li></a>
-        <a href="" class="current-page"><li>Play Games</li></a>
+        <a href="" class="current-page"><li>Solitaire</li></a>
       </ul>
     </div>
     <div id="mobileMenu">
@@ -43,7 +43,7 @@
         <a href="wedding_party.html"><li>Wedding Party</li></a>
         <a href="photos.html"><li>Photos</li></a>
         <a href="activities.html"><li>Things To Do</li></a>
-        <a href=""><li>Play Games</li></a>
+        <a href=""><li>Solitaire</li></a>
       </ul>
     </div>
   </nav>
@@ -55,7 +55,11 @@
       width="100%"
       scrolling="no"
       referrerpolicy="no-referrer"
-      loading="eager">
+      loading="eager"
+      onload="setIframeHeight(this.id)">
     </iframe>
   </div>
 </body>
+<footer>
+  <script src="js/setIframeHeight.js"></script>
+</footer>
