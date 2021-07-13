@@ -70,10 +70,7 @@
             <th align="left">Time</th>
           </tr>
         </thead>
-        <tbody>
-            <td>Test</td>
-            <td>94</td>
-            <td>32:22</td>
+        <tbody id="highScoresBody">
         </tbody>
       </table>
       <br />
@@ -105,13 +102,38 @@
         if (xhr.status != 200) {
           console.log("Error fetching high scores.")
         } else {
-          var response = JSON.parse(this.responseText);
-          console.log(response);
+          var scores = JSON.parse(this.responseText);
+          populateHighScores(scores)
         }
       };
       xhr.onerror = function() {
         console.log("Error fetching high scores.")
       };
+    }
+
+    function populateHighScores(scores) {
+      for (var i = 0; i < scores.length; i++) {
+        var highScores = document.getElementById('highScoresBody');
+        var tr = document.createElement('tr');
+        var playerNameTd = document.createElement('td');
+        var scoreTd = document.createElement('td');
+        var timeTd = document.createElement('td');
+
+        playerNameTd.innerHTML = scores[i].playerName;
+        scoreTd.innerHTML = scores[i].score;
+        timeTd.innerHTML = scores[i].timeSeconds;
+
+        tr.appendChild(playerNameTd);
+        tr.appendChild(scoreTd);
+        tr.appendChild(timeTd);
+        highScores.appendChild(tr);
+      }
+      } else {
+        var td = document.createElement('td');
+        td.appendChild(document.createTextNode('\u0020'))
+        i == 1 && j == 1 ? td.setAttribute('rowSpan', '2') : null;
+        tr.appendChild(td)
+      }
     }
 
     window.onload = loadHighScores;
