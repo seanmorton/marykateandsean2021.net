@@ -136,13 +136,21 @@
 
         playerNameTd.innerHTML = scores[i].playerName;
         scoreTd.innerHTML = scores[i].score;
-        timeTd.innerHTML = scores[i].timeSeconds;
+        timeTd.innerHTML = displayTimeSeconds(scores[i].timeSeconds);
 
         tr.appendChild(playerNameTd);
         tr.appendChild(scoreTd);
         tr.appendChild(timeTd);
         highScores.appendChild(tr);
       }
+    }
+
+    function displayTimeSeconds(timeSeconds) {
+      var seconds = timeSeconds % 60;
+      var minutes = Math.fllor(timeSeconds / 60);
+      var hours = Math.fllor(timeSeconds / 60 / 60);
+
+      return hours + ":" + minutes + ":" + seconds
     }
 
     window.onload = loadHighScores;
