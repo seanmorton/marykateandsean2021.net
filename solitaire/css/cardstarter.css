@@ -34,9 +34,9 @@
     box-shadow: 2px 2px 3px 0 rgba(41, 41, 41, 0.75); }
   .card.outline {
     background-image: none;
-    background-color: rgba(0, 0, 0, 0.02);
+    background-color: rgba(0, 0, 0, 0.1);
     cursor: default;
-    border: 0.15em dashed rgba(59, 59, 59, 0.2); }
+    border: 0.15em dashed rgba(59, 59, 59, 0.4); }
 
 .card.diamonds.A,
 .card.dA,
