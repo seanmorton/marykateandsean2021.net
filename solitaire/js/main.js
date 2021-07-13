@@ -18,7 +18,7 @@ const values = ['A', '02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 
 
 /*----- app's state (variables) -----*/
 
-let deck, pile, draw, stacks, aces, winner, clickedCard, firstClickDest, firstStackId,
+let gameStarted, deck, pile, draw, stacks, aces, winner, clickedCard, firstClickDest, firstStackId,
 cardArr, secondsPlayed, counter, boardScore, totalScore, autoSavedScore, gameId, drawCycles, clickCount;
 
 /*----- cached element references -----*/
@@ -42,7 +42,7 @@ const boardEls = {
 const playerNameFormEl = document.getElementById('playerNameForm');
 const playerNameInputEl = document.getElementById('playerNameInput');
 const playerNameEl = document.getElementById('playerName');
-const gameBoardEl = document.getElementById('gameBoard');
+const resetButtonEl = document.getElementById('resetButton');
 const scoreEl = document.getElementById('score');
 const timerEl = document.getElementById('timer');
 const saveStatusEl = document.getElementById('saveStatus');
@@ -55,10 +55,11 @@ document.getElementById('startGame').addEventListener('click', startGame);
 /*----- functions -----*/
 
 function startGame() {
-  gameBoardEl.style.display = 'block';
   playerNameFormEl.style.display = 'none';
+  resetButtonEl.style.display = 'block';
   playerName = playerNameInputEl.value;
   playerNameEl.innerHTML = playerName || "Player 1"
+  gameStarted = true;
   init();
 }
 
@@ -234,6 +235,7 @@ function isDoubleClick() {
 }
 
 function handleClick(evt) {
+    if (!gameStarted) { return };
 
     let clickDest = getClickDestination(evt.target);
 
