@@ -94,5 +94,25 @@
       ifrm.style.height = getDocHeight( doc ) + 200 + "px";
       ifrm.style.visibility = 'visible';
     }
+
+
+    function loadHighScores() {
+      let xhr = new XMLHttpRequest();
+      xhr.open("GET", "http://marykateandsean2021.net/rsvp_app/game_scores")
+      xhr.send();
+
+      xhr.onload = function() {
+        if (xhr.status != 200) {
+          console.log("High scores loaded.")
+        } else {
+          console.log("Error fetching high scores.")
+        }
+      };
+      xhr.onerror = function() {
+        console.log("Error fetching high scores.")
+      };
+    }
+
+    window.onload = loadHighScores;
   </script>
 </footer>
