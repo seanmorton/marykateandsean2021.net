@@ -627,8 +627,8 @@ function autoSave() {
 
   saveStatusEl.textContent = 'saving score..'
   let xhr = new XMLHttpRequest();
-  xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.open("PUT", "http://marykateandsean2021.net/rsvp_app/game_scores")
+  xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.send(JSON.stringify({
     game: "SOLITAIRE",
     playerName: playerName,
