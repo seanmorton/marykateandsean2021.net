@@ -204,7 +204,7 @@ function getScore() {
 function updateScore() {
     let displayScore = totalScore;
     if (displayScore < 0) displayScore = 0;
-    scoreEl.textContent = `score - ${displayScore}`
+    scoreEl.textContent = `score: ${displayScore}`
 }
 
 function clearAllDivs() {
@@ -625,25 +625,25 @@ function startAutoSave() {
 function autoSave() {
   if (totalScore <= 0 || autoSavedScore === totalScore) { return };
 
-  saveStatusEl.textContent = 'Saving score..'
+  saveStatusEl.textContent = 'saving score..'
   let xhr = new XMLHttpRequest();
   xhr.open("PUT", "http://marykateandsean2021.net/rsvp_app/game_scores")
-  xhr.send({
+  xhr.send(JSON.stringify({
     game: "SOLITAIRE",
     playerName: playerName,
     score: totalScore,
     timeSeconds: secondsPlayed
-  })
+  }));
   xhr.onload = function() {
     if (xhr.status != 200) {
-      saveStatusEl.textContent = 'Error saving score!';
+      saveStatusEl.textContent = 'error saving score!';
     } else {
       autoSavedScore = totalScore;
-      setTimeout(function() { saveStatusEl.textContent = ''; }, 2 * 1000);
+      setTimeout(function() { saveStatusEl.textContent = ''; }, 1 * 1000);
     }
   };
   xhr.onerror = function() {
-    saveStatusEl.textContent = 'Error saving score!';
+    saveStatusEl.textContent = 'error saving score!';
   };
 }
 
