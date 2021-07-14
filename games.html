@@ -59,6 +59,38 @@
       style="border: 4px groove #f2d273;"
       onload="setIframeHeight(this.id)">
     </iframe>
+    <div class="contentSection">
+      <h2>High Scores</h2>
+      <p>The guest with the highest score will receive special recognition at the wedding!</p>
+      <table id="highScores" border="1" cellpadding="5">
+        <thead>
+          <tr>
+            <th align="left">Name</th>
+            <th align="left">Score</th>
+            <th align="left">Time</th>
+          </tr>
+        </thead>
+        <tbody id="highScoresBody">
+        </tbody>
+      </table>
+      <br />
+      <p>Special thanks to <a href="https://github.com/joe-gerhard/Solitaire", target="_blank">Joe Gerhard</a>, who wrote the majority of this game which Sean slightly modified for this site.</p>
+      <h3>Instructions</h3>
+      <ol>
+        <li>
+          To start the game, enter your name so your score will be recorded. Your score is auto-saved every 10 seconds during play.
+        </li>
+        <li>
+          Click on a card to select it. Then, click on where you want to place the card (drag and drop is not supported.)
+        </li>
+        <li>
+          To deselect a card, click it again.
+        </li>
+        <li>
+          You can review the full rules of solitaire <a href="https://www.solitairecardgames.com/how-to-play-solitaire" target="_blank">here</a>.
+        </li>
+      </ol>
+    </div>
   </div>
 </body>
 <footer>
@@ -70,9 +102,57 @@
           ifrm.contentWindow.document;
       ifrm.style.visibility = 'hidden';
       ifrm.style.height = "10px"; // reset to minimal height ...
-      // IE opt. for bing/msn needs a bit added or scrollbar appears
+      // Add extra height so the cards don't get hidden
       ifrm.style.height = getDocHeight( doc ) + 200 + "px";
       ifrm.style.visibility = 'visible';
     }
+
+
+    function loadHighScores() {
+      let xhr = new XMLHttpRequest();
+      xhr.open("GET", "http://marykateandsean2021.net/rsvp_app/game_scores")
+      xhr.send();
+
+      xhr.onload = function() {
+        if (xhr.status != 200) {
+          console.log("Error fetching high scores.")
+        } else {
+          var scores = JSON.parse(this.responseText);
+          populateHighScores(scores)
+        }
+      };
+      xhr.onerror = function() {
+        console.log("Error fetching high scores.")
+      };
+    }
+
+    function populateHighScores(scores) {
+      for (var i = 0; i < scores.length; i++) {
+        var highScores = document.getElementById('highScoresBody');
+        var tr = document.createElement('tr');
+        var playerNameTd = document.createElement('td');
+        var scoreTd = document.createElement('td');
+        var timeTd = document.createElement('td');
+
+        playerNameTd.innerHTML = scores[i].playerName;
+        scoreTd.innerHTML = scores[i].score;
+        timeTd.innerHTML = displayTimeSeconds(scores[i].timeSeconds);
+
+        tr.appendChild(playerNameTd);
+        tr.appendChild(scoreTd);
+        tr.appendChild(timeTd);
+        highScores.appendChild(tr);
+      }
+    }
+
+    function displayTimeSeconds(timeSeconds) {
+      var seconds = timeSeconds % 60;
+      var minutes = Math.floor(timeSeconds / 60);
+      var hours = Math.floor(timeSeconds / 60 / 60);
+
+      return hours.toString().padStart(2, "0") + ":" + minutes.toString().padStart(2, "0") + ":" + seconds.toString().padStart(2, "0")
+    }
+
+    window.onload = loadHighScores;
   </script>
 </footer>

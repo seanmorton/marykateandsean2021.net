@@ -19,6 +19,15 @@ h1 {
     font-size: 3.5vw;
 }
 
+#playerNameForm {
+  margin-top: 30vh;
+  color: lightgrey;
+}
+
+#playerNameInput {
+  font-size: 2.0vw;
+}
+
 #pile {
     cursor: pointer;
 }
@@ -34,11 +43,11 @@ h1 {
     position: relative;
 }
 
-.gameControls {
+#gameControls {
     display: flex;
     justify-content: left;
     margin: 1vh 0 auto 0;
-    width: 48vw;
+    width: 80vw;
     margin-bottom: 5vh;
 }
 
@@ -46,11 +55,7 @@ h1 {
   margin-right: 3vw;
 }
 
-#timer {
-    color: lightgrey;
-}
-
-#score {
+#saveStatus, #timer, #score, #playerName {
     margin-right: 3vw;
     color: lightgrey;
 }

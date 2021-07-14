@@ -1,5 +1,6 @@
 // TODO:
 // 1) subtract time penalty from final score
+// 2) De-select card when clicking another card / no card
 
 // STRETCH GOALS:
 // 1) add difficulty option--draw 3 cards at a time instead of 1
@@ -10,17 +11,17 @@
 // 6) make an undo button
 // 7) add 'instructions' section
 
-/*----- constants -----*/ 
+/*----- constants -----*/
 
 const suits = ['s', 'h', 'c', 'd'];
 const values = ['A', '02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 'Q', 'K']
 
-/*----- app's state (variables) -----*/ 
+/*----- app's state (variables) -----*/
 
-let deck, pile, draw, stacks, aces, winner, clickedCard, firstClickDest, firstStackId, 
-cardArr, secondsPlayed, counter, boardScore, totalScore, drawCycles, clickCount;
+let gameStarted, deck, pile, draw, stacks, aces, winner, clickedCard, firstClickDest, firstStackId,
+cardArr, secondsPlayed, counter, boardScore, totalScore, autoSavedScore, gameId, drawCycles, clickCount;
 
-/*----- cached element references -----*/ 
+/*----- cached element references -----*/
 
 const boardEls = {
     pile: document.getElementById('pile'),
@@ -38,16 +39,35 @@ const boardEls = {
     stack7: document.getElementById('stack7')
 }
 
-const timerEl = document.getElementById('timer');
+const playerNameFormEl = document.getElementById('playerNameForm');
+const playerNameInputEl = document.getElementById('playerNameInput');
+const playerNameEl = document.getElementById('playerName');
+const resetButtonEl = document.getElementById('resetButton');
 const scoreEl = document.getElementById('score');
+const timerEl = document.getElementById('timer');
+const saveStatusEl = document.getElementById('saveStatus');
 
-/*----- event listeners -----*/ 
+/*----- event listeners -----*/
 
 document.querySelector('body').addEventListener('click', handleClick);
+document.getElementById('startGame').addEventListener('click', startGame);
 
 /*----- functions -----*/
 
-init();
+function startGame() {
+  playerName = playerNameInputEl.value
+  if (!!!playerName) {
+      alert("Please enter your name to start the game.");
+      return;
+  }
+  playerNameEl.innerHTML = playerName
+  gameStarted = true;
+
+  playerNameFormEl.style.display = 'none';
+  resetButtonEl.style.display = 'block';
+
+  init();
+}
 
 function init() {
     stopTimer();
@@ -65,6 +85,8 @@ function init() {
     counter = null;
     boardScore = 0;
     totalScore = 0;
+    autoSavedScore = 0;
+    gameId = uuidv4();
     drawCycles = 0;
     makeDeck();
     shuffleDeck();
@@ -82,7 +104,7 @@ function render() {
     updateScore();
     if(checkWinner()) {
         clearInterval(counter);
-        document.querySelector('h1').textContent = 'You Win!';
+        alert("YOU WIN!!! \n\nYour score has been recorded.");
     }
 }
 
@@ -125,7 +147,7 @@ function renderPile() {
         cardEl.className = `card back ${card.suit}${card.value}`
         cardEl.style = `position: absolute; left: -7px; top: ${-7 + (cIdx*-.5)}px;`
         boardEls.pile.appendChild(cardEl);
-    }); 
+    });
 }
 function renderDraw() {
     draw.forEach((card, cIdx) => {
@@ -169,7 +191,7 @@ function makeDeck() {
 function shuffleDeck() {
     deck = deck.sort(()=> Math.random() -.5);
 }
-                             
+
 function dealCards() {
     stacks.forEach((stack, idx) => {
         for (let i = 0; i < idx +1; i++)
@@ -177,7 +199,7 @@ function dealCards() {
     });
     deck.forEach(card =>{
         pile.push(card);
-    });              
+    });
 }
 
 function getScore() {
@@ -193,7 +215,7 @@ function getScore() {
 function updateScore() {
     let displayScore = totalScore;
     if (displayScore < 0) displayScore = 0;
-    scoreEl.textContent = `score - ${displayScore}`
+    scoreEl.textContent = `score: ${displayScore}`
 }
 
 function clearAllDivs() {
@@ -219,12 +241,14 @@ function isDoubleClick() {
 }
 
 function handleClick(evt) {
+    if (!gameStarted) { return };
 
     let clickDest = getClickDestination(evt.target);
-    
-    // start the timer on user's first click
+
+    // start the timer and autosave on user's first click
     if(!counter && clickDest !== 'resetButton') {
         startTimer();
+        startAutoSave();
     }
 
     if (clickDest.includes('stack')) {
@@ -247,7 +271,7 @@ function handleStackDoubleClick(element) {
 
     if(stackId) {
         topCard = stacks[stackId][stacks[stackId].length -1];
-    } else { 
+    } else {
         topCard = draw[draw.length -1];
     }
 
@@ -266,7 +290,7 @@ function handleStackDoubleClick(element) {
 function isTheSameCard(cardEl, cardObj) {
     let card1 = getCardClassFromEl(cardEl);
     let card2 = getCardClassFromObj(cardObj);
-    
+
     return card1 === card2;
 }
 
@@ -282,12 +306,12 @@ function getCardClassFromObj(cardObj) {
 }
 
 function checkForLegalMove(clickDest) {
-    
+
     let stackIdx = clickDest.replace('stack', '') -1;
     let card = getCardClassFromEl(document.getElementById(clickDest).lastChild);
     let cardObj = getCardObjFromClass(card);
     let acePileTopCardsArr = getAcePileTopCards();
-    
+
     // move a card to the proper place if it's a legal play
     acePileTopCardsArr.forEach((topCardObj, aceIdx) => {
         if (topCardObj.suit === cardObj.suit) {
@@ -300,7 +324,7 @@ function checkForLegalMove(clickDest) {
                         cardArr.pop();
                     }
                     render();
-    
+
                 } else if(clickedCard) {
                     aces[aceIdx].push(clickedCard);
                     clickedCard = null;
@@ -310,13 +334,13 @@ function checkForLegalMove(clickDest) {
                     render();
                 }
             }
-        } 
+        }
     });
 
     // move an ace to the first available empty ace pile
     for (let aceIdx = 0; aceIdx < acePileTopCardsArr.length; aceIdx++) {
         if(acePileTopCardsArr[aceIdx] === 0 && getCardValue(cardObj) === 1) {
-            
+
             if(!clickedCard) {
                 moveTopCard(stacks[stackIdx], aces[aceIdx]);
                 stacksFaceUp[stackIdx]--;
@@ -424,8 +448,8 @@ function handleStackClick(element) {
         if(firstStackId === 'draw') boardScore += 5;
         clickedCard = null;
         render();
-    } 
-} 
+    }
+}
 
 function handleAceClick(element) {
 
@@ -466,7 +490,7 @@ function handleAceClick(element) {
                 clickedCard = null;
                 render();
             }
-        }    
+        }
     }
 }
 
@@ -494,7 +518,7 @@ function handleDrawClick(element) {
         }
         clickedCard = null;
         render();
-    } 
+    }
 }
 
 function handlePileClick () {
@@ -503,7 +527,7 @@ function handlePileClick () {
         if(pile.length > 0) {
             draw.push(pile.pop());
             render();
-        // if the pile is empty, recycle the 'draw' into the 'pile' and subtract points    
+        // if the pile is empty, recycle the 'draw' into the 'pile' and subtract points
         } else {
             while(draw.length > 0) {
                 pile.push(draw.pop())
@@ -520,7 +544,7 @@ function isEmptyStack(element) {
 }
 
 function isPlayLegal(card1, card2) {
-    
+
     let card1Color = getCardColor(card1);
     let card1Value = getCardValue(card1);
     let card2Color = getCardColor(card2);
@@ -587,7 +611,7 @@ function startTimer() {
 function stopTimer() {
     secondsPlayed = null;
     clearInterval(counter);
-    timerEl.textContent = `time - 0:00`;
+    timerEl.textContent = `time: 0:00`;
 }
 
 function count() {
@@ -600,12 +624,45 @@ function count() {
     hours = Math.floor(minutes / 60)
     minutes = (Math.floor(secondsPlayed / 60)) - (hours * 60);
     seconds = secondsPlayed - (minutes * 60);
-    
-    timerEl.textContent = `time - ${hours > 0 ? `${hours}:` : ''}${minutes < 10 && hours > 0 ? `0${minutes}`: minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
+
+    timerEl.textContent = `time: ${hours > 0 ? `${hours}:` : ''}${minutes < 10 && hours > 0 ? `0${minutes}`: minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
+}
+
+function startAutoSave() {
+  // Check to save the score every 10s
+  setInterval(autoSave, 10 * 1000)
+}
+
+// Save the score if it's an updated score that's > 0
+function autoSave() {
+  if (totalScore <= 0 || autoSavedScore === totalScore) { return };
+
+  saveStatusEl.textContent = 'saving score..'
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", "http://marykateandsean2021.net/rsvp_app/game_scores")
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.send(JSON.stringify({
+    game: "SOLITAIRE",
+    gameId: gameId,
+    playerName: playerName,
+    score: totalScore,
+    timeSeconds: secondsPlayed
+  }));
+  xhr.onload = function() {
+    if (xhr.status != 200) {
+      saveStatusEl.textContent = 'error saving score!';
+    } else {
+      autoSavedScore = totalScore;
+      setTimeout(function() { saveStatusEl.textContent = ''; }, 1 * 1000);
+    }
+  };
+  xhr.onerror = function() {
+    saveStatusEl.textContent = 'error saving score!';
+  };
 }
 
 function isFaceUpCard(element) {
-    return (element.className.includes('card') && !(element.className.includes('back')) && !(element.className.includes('outline'))) 
+    return (element.className.includes('card') && !(element.className.includes('back')) && !(element.className.includes('outline')))
 }
 
 function isAcePile(element) {
@@ -619,7 +676,7 @@ function isAcePile(element) {
 function getClickDestination(element) {
     if (element.id) {
         return element.id;
-    } 
+    }
     else {
         return element.parentNode.id;
     }
@@ -627,10 +684,16 @@ function getClickDestination(element) {
 
 function winGame() {
     aces.forEach(arr => {
-        
+
         for(let i = 0; i < 13; i++) {
             arr.push(`fake card ${i +1 }`);
         }
     })
     render();
+}
+
+function uuidv4() {
+  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+  );
 }
