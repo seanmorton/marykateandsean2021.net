@@ -639,7 +639,7 @@ function autoSave() {
 
   saveStatusEl.textContent = 'saving score..'
   let xhr = new XMLHttpRequest();
-  xhr.open("POST", "http://marykateandsean2021.net/rsvp_app/game_scores")
+  xhr.open("POST", "https://marykateandsean2021.net/rsvp_app/game_scores")
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.send(JSON.stringify({
     game: "SOLITAIRE",
