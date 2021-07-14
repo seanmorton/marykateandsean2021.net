@@ -127,9 +127,10 @@
     }
 
     function populateHighScores(scores) {
+      var highScores = document.getElementById('highScoresBody');
+      highScores.innerHTML = '';
+
       for (var i = 0; i < scores.length; i++) {
-        var highScores = document.getElementById('highScoresBody');
-        highScores.innerHTML = '';
 
         var tr = document.createElement('tr');
         var playerNameTd = document.createElement('td');
