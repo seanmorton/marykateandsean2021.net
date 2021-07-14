@@ -61,7 +61,7 @@
     </iframe>
     <div class="contentSection">
       <h2>High Scores</h2>
-      <p>The guest with the highest score will receive special recognition at the wedding!</p>
+      <p>The guest with the highest score will receive special recognition at the wedding! The board is updated every 30s.</p>
       <table id="highScores" border="1" cellpadding="5">
         <thead>
           <tr>
@@ -129,6 +129,8 @@
     function populateHighScores(scores) {
       for (var i = 0; i < scores.length; i++) {
         var highScores = document.getElementById('highScoresBody');
+        highScores.innerHTML = '';
+
         var tr = document.createElement('tr');
         var playerNameTd = document.createElement('td');
         var scoreTd = document.createElement('td');
@@ -154,5 +156,6 @@
     }
 
     window.onload = loadHighScores;
+    setInterval(loadHighScores, 30 * 1000);
   </script>
 </footer>
