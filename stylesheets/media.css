@@ -28,4 +28,8 @@
   iframe {
     margin-top: 0px;
   }
+
+  #currentPhoto {
+    height: 350px;
+  }
 }
