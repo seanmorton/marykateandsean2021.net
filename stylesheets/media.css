@@ -29,6 +29,16 @@
     margin-top: 0px;
   }
 
+  #photoAlbum th.prev {
+    width: 15%;
+  }
+  #photoAlbum th.next {
+    width: 15%;
+  }
+  #photoAlbum th.photo {
+    width: 70%;
+  }
+
   #currentPhoto {
     height: 300px;
   }
