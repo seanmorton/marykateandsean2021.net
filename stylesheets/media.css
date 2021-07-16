@@ -32,4 +32,7 @@
   #currentPhoto {
     height: 300px;
   }
+  #prevPhoto, #nextPhoto {
+    height: 300px;
+  }
 }

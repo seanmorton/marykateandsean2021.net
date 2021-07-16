@@ -36,6 +36,11 @@
   top: 0;
   width: 100vw;
   height: 100vh;
-  object-fit: contain;
   background-color: #000;
+  object-fit: contain;
+}
+
+#prevPhoto, #nextPhoto {
+  width: 50px;
+  height: 500px;
 }
