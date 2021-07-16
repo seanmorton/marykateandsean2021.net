@@ -49,24 +49,23 @@
     </div>
   </nav>
   <div class="content">
+    <table id="photoAlbum">
+      <thead>
+        <tr>
+          <th class="prev">
+          <th class="photo">
+          <th class="next">
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><button id="prevPhoto" style="display: none;">&lt;</button></td>
+          <td><img id="currentPhoto" src=""></td>
+          <td><button id="nextPhoto" style="display: none">&gt;</button></td>
+        </tr>
+      </tbody>
+    </table>
     <div class="contentSection">
-      <table id="photoAlbum">
-        <thead>
-          <tr>
-            <th class="prev">
-            <th class="photo">
-            <th class="next">
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><button id="prevPhoto" style="display: none;">&lt;</button></td>
-            <td><img id="currentPhoto" src=""></td>
-            <td><button id="nextPhoto" style="display: none">&gt;</button></td>
-          </tr>
-        </tbody>
-      </table>
-      <br />
       <p id="currentPhotoDesc"></p>
     </div>
   </div>
