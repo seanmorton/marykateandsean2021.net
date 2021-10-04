@@ -21,7 +21,11 @@
     text-align: left;
   }
   ul.subnav {
-    font-size: 24px;
+    font-size: 22px;
+  }
+
+  .wedding-party {
+    margin: 0 0;
   }
 
   .content {
