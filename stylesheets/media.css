@@ -27,6 +27,10 @@
   .wedding-party {
     margin: 0 0;
   }
+  img.wedding-party-profile {
+    height: 250px;
+    width: 250px;
+  }
 
   .content {
     padding-top: 36px;

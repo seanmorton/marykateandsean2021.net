@@ -133,3 +133,8 @@ table {
 .wedding-party {
   margin: 0 25%;
 }
+
+img.wedding-party-profile {
+  height: 300px;
+  width: 300px;
+}
