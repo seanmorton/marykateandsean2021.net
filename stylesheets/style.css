@@ -112,7 +112,7 @@ a:hover {
   font-size: 48px;
 }
 
-#welcomeMessage {
+.center {
   text-align: center;
 }
 
@@ -125,7 +125,7 @@ a:hover {
   border: 1px ridge;
 }
 
-table#highScores {
+table {
   width: 100%;
   border-spacing: 3px;
 }
