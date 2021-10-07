@@ -24,6 +24,10 @@
     font-size: 22px;
   }
 
+  table.subnav {
+    width: 100%;
+  }
+
   .wedding-party {
     margin: 0 0;
   }
