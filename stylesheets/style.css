@@ -31,15 +31,21 @@ nav {
   font-size: 22px;
 }
 
-ul.subnav {
-  list-style: none;
-  margin-bottom: 25px;
+table, th, td {
+  border: 1px solid black;
+
+}
+
+table.subnav {
   text-align: center;
+  background-color: #ddd;
+  border-collapse: collapse;
+  margin-bottom: 20px;
   font-size: 28px;
 }
 
-ul.subnav li {
-  display: inline;
+.subnav a:hover, .subnav a.current-page {
+  color: #f16c00;
 }
 
 .content {
