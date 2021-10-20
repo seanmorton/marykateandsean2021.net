@@ -88,18 +88,16 @@
       var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-
-      document.getElementById("countdown").innerHTML = days + " days, " + hours + " hours, "
-      + minutes + " minutes, and " + seconds + " seconds";
-
-      // If the count down is finished, write some text
-      if (distance < 0) {
+      if (distance >= 0) {
+        document.getElementById("countdown").innerHTML = days + " days, " + hours + " hours, "
+        + minutes + " minutes, and " + seconds + " seconds";
+      } else { // If the count down is finished, write some text
         clearInterval(timer);
         var oneDayAgo = -(1000 * 60 * 60 * 24);
         if (distance >= oneDayAgo) {
-          document.getElementById("welcomeMessage").innerHTML = "Congrats Mary Kate & Sean, it's time to party!!!!";
+          document.getElementById("countdown").innerHTML = "Congrats Mary Kate & Sean, it's time to party!!!!";
         } else {
-          document.getElementById("welcomeMessage").innerHTML = "What a great wedding. Thank you for attending!";
+          document.getElementById("countdown").innerHTML = "What a great wedding. Thank you for attending!";
         }
       }
     }, 1000);5
