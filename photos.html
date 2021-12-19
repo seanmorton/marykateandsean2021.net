@@ -112,8 +112,9 @@
       document.addEventListener('click', function (e) {
 	      if (!e.target.matches('.albumLink')) return;
 	      e.preventDefault();
-	      loadAlbum(e.target.dataset.name);
+	      selectAlbum(e.target.dataset.name);
       });
+
       document.addEventListener('keydown', function (e) {
         if (e.key === 'ArrowRight') {
           currentPhotoIdx = setCurrentPhoto(currentPhotoIdx + 1);
@@ -130,23 +131,6 @@
 
       var AJAX_LOADER = mkImg("images/ajax_loader.gif");
       currentPhoto.src = AJAX_LOADER.src;
-
-      fetch("images/photo_albums/albums.json")
-        .then(response => response.json())
-        .then(albums => {
-          renderAlbums(albums);
-        });
-
-      function loadAlbum(albumName) {
-        fetch(albumMetadataPath(albumName))
-          .then(response => response.json())
-          .then(album => {
-            currentAlbum = album;
-            currentPhotoIdx = setCurrentPhoto(0);
-            albumSelect.style.display = 'none';
-            photoAlbum.style.display = 'block';
-          });
-      }
 
       function renderAlbums(albums) {
         albums.forEach(album => {
@@ -172,6 +156,17 @@
           albumSelect.appendChild(img);
           albumSelect.appendChild(p);
         });
+      }
+
+      function selectAlbum(albumName) {
+        fetch(albumMetadataPath(albumName))
+          .then(response => response.json())
+          .then(album => {
+            currentAlbum = album;
+            currentPhotoIdx = setCurrentPhoto(0);
+            albumSelect.style.display = 'none';
+            photoAlbum.style.display = 'block';
+          });
       }
 
       function setCurrentPhoto(newPhotoIdx) {
@@ -222,6 +217,12 @@
       function photoPath(albumName, filename) {
         return "/images/photo_albums/" + albumName + "/" + filename;
       }
+
+      fetch("images/photo_albums/albums.json")
+        .then(response => response.json())
+        .then(albums => {
+          renderAlbums(albums);
+        });
     });
   </script>
 </footer>
