@@ -1,7 +1,6 @@
 #photoAlbum {
   table-layout: fixed;
   width: 100%;
-  white-space: nowrap;
 }
 #photoAlbum td {
   white-space: nowrap;
@@ -21,7 +20,7 @@
 #photoAlbum #currentPhoto {
   width: 100%;
 }
-#photoAlbum #currentPhotoDesc {
+#photoAlbum p {
   text-align: center;
 }
 

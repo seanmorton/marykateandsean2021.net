@@ -51,473 +51,143 @@
   </nav>
   <div class="content">
     <div class ="contentSection">
-      <table class="subnav">
-        <tbody>
-          <tr><td><a href="" id="bend_album" class="current-page">Trip to Bend</a></td><td><a id="paintball_album" href="">Paintball</a></td></tr>
-        </tbody>
-      </table>
-      <table id="photoAlbum">
-        <thead>
-          <tr>
-            <th class="prev">
-            <th class="photo">
-            <th class="next">
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><button id="prevPhoto" style="display: none;">&lt;</button></td>
-            <td><img id="currentPhoto" src=""></td>
-            <td><button id="nextPhoto" style="display: none">&gt;</button></td>
-          </tr>
-        </tbody>
-      </table>
-      <p id="currentPhotoDesc"></p>
+      <div id="albumSelect">
+      </div>
+      <div id="photoAlbum" style="display:none;">
+        <a href="#"><h1 id="back">&lt; Back</h1></a>
+        <table>
+          <thead>
+            <tr>
+              <th class="prev">
+              <th class="photo">
+              <th class="next">
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><button id="prevPhoto" style="display: none;">&lt;</button></td>
+              <td><img id="currentPhoto" src=""></td>
+              <td><button id="nextPhoto" style="display: none">&gt;</button></td>
+            </tr>
+          </tbody>
+        </table>
+        <p id="currentPhotoCounter"></p>
+        <p id="currentPhotoDesc"></p>
+        <p id="fullscreenTip">Tip: Click a photo to view it in fullscreen.</p>
+      </div>
     </div>
   </div>
 </body>
 <footer>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      var currentAlbum = "bend_n_back"
-      var photos = {
-        bend_n_back: [
-          {
-            img: mkImg("images/bend_n_back/00_road.JPG"),
-            desc: "In early June 2021, Sean and Mary Kate went on a 'pre-honeymoon' road trip up to Bend, OR and back with some camping and hiking along the way. We figured that since we had to delay our wedding for a year, we deserve two honeymoons, right? <br /><br />Tip: To view any photo in full screen, simply click it, and then click it again to exit full screen.<br /><br />The trip began driving through Humboldt Redwoowds State Park on Higway 101. The drive was beautiful, but also a little stressful since we were trying to make it to camp before sunset."
-          },
-          {
-            img: mkImg("images/bend_n_back/01_first_camp.JPG"),
-            desc: "The first night's camp was at Elk Prairie campground, a few miles north of Eureka, CA. We arrived with 20 minutes left of sunlight to setup the tent. Our site was #64 which was very large and private. Sean forgot to pack the wood, so candles had to suffice for the first night."
-          },
-          {
-            img: mkImg("images/bend_n_back/01a_bacon.JPG"),
-            desc: "We love the smell of bacon in the morning! For our first day we planned an all day hike, so we made sure to eat a full breakfast."
-          },
-          {
-            img: mkImg("images/bend_n_back/02_redwood.JPG"),
-            desc: "The first large redwood we came across on our hike in Prairie Creek Redwoods State Park, which was walkable from our tent."
-          },
-          {
-            img: mkImg("images/bend_n_back/03_mk_documents.JPG"),
-            desc: "Mary Kate documents native plants for later identification."
-          },
-          {
-            img: mkImg("images/bend_n_back/04_mk_for_scale.JPG"),
-            desc: "Another large redwood with Mary Kate for scale."
-          },
-          {
-            img: mkImg("images/bend_n_back/05_sean_for_scale.JPG"),
-            desc: "This time with Sean for scale. These trees did a great job at making us feel small and humble."
-          },
-          {
-            img: mkImg("images/bend_n_back/06_close_to_beach.JPG"),
-            desc: "The foliage started to change as we got close to the beach."
-          },
-          {
-            img: mkImg("images/bend_n_back/07_driftwood.JPG"),
-            desc: "Golden Bluffs State Beach was the midpoint of our hike. We had a quick lunch on this huge piece of driftwood."
-          },
-          {
-            img: mkImg("images/bend_n_back/08_fern_canyon.JPG"),
-            desc: "The beautiful Fern Canyon. It felt like an outdoor church, and was the only part of the hike where we saw other people."
-          },
-          {
-            img: mkImg("images/bend_n_back/09_fern_canyon_us.JPG"),
-            desc: "Mary Kate and Sean in Fern Canyon."
-          },
-          {
-            img: mkImg("images/bend_n_back/10_giant_spinach.JPG"),
-            desc: "Look closely, you'll see a giant spinach leaf! Sean's foot for scale."
-          },
-          {
-            img: mkImg("images/bend_n_back/11_grillin.JPG"),
-            desc: "Cooking up dinner after a long day's hike."
-          },
-          {
-            img: mkImg("images/bend_n_back/11a_steak_smile.JPG"),
-            desc: "Mary Kate smiling after sampling some of the skirt steak we're preparing for dinner."
-          },
-          {
-            img: mkImg("images/bend_n_back/12_fajitas.JPG"),
-            desc: "Nothing beats camping fajitas! They're an all time favorite of ours."
-          },
-          {
-            img: mkImg("images/bend_n_back/13_bandage.JPG"),
-            desc: "Sean tried to whittle a candle down with a pocket knife so the wick would light again. The candle won."
-          },
-          {
-            img: mkImg("images/bend_n_back/14_first_aid.JPG"),
-            desc: "Luckily, Mary Kate is first aid certified. Never forget to pack a first aid kit!"
-          },
-          {
-            img: mkImg("images/bend_n_back/15_coast_to_oregon.JPG"),
-            desc: "Back on the road the next morning, on the coast near the Oregon border."
-          },
-          {
-            img: mkImg("images/bend_n_back/16_crater_lake_us.JPG"),
-            desc: "After a 6h drive and worrying about the park closing, we made it to Crater Lake!"
-          },
-          {
-            img: mkImg("images/bend_n_back/17_crater_lake_feet.JPG"),
-            desc: "Taking a well deserved rest with a killer view. It was amazing to watch the high winds rip across the lake while we were sheltered in the trees."
-          },
-          {
-            img: mkImg("images/bend_n_back/18_road_to_bend.JPG"),
-            desc: "Pushing a little further through Klamath County to get our final destination of Bend, OR. Note: this driver-captured photograph was taken on a closed course. Do not attempt."
-          },
-          {
-            img: mkImg("images/bend_n_back/19_bend_bar.JPG"),
-            desc: "After checking into our hotel and a refreshing hot shower, we grabbed a a quick drink in downtown Bend."
-          },
-          {
-            img: mkImg("images/bend_n_back/20_sean_shaka.JPG"),
-            desc: "Sean originally planned to go river sufring in Bend, but decided he should forego it given his finger injury from the recent candle incident. However, when the morning came he couldn't resist the stoke and quickly devised a makeshift waterproof bandage so he could go surfing anyway."
-          },
-          {
-            img: mkImg("images/bend_n_back/21_sean_river_surf.PNG"),
-            desc: "Sean surfing the river wave on the Deschutes. It's more like a wakesurfing wave than an ocean wave, and was a great deal of fun. Photo credit to Mary Kate, who very kindly stood patiently on a nearby bridge to get this shot."
-          },
-          {
-            img: mkImg("images/bend_n_back/22_blockbuster_us.JPG"),
-            desc: "Our main attraction in Bend: the last operating Blockbuster in the world!"
-          },
-          {
-            img: mkImg("images/bend_n_back/23_blockbuster_mk.JPG"),
-            desc: "Mary Kate with the new releases."
-          },
-          {
-            img: mkImg("images/bend_n_back/24_blockbuster.JPG"),
-            desc: "Being inside the store felt like going back in time."
-          },
-          {
-            img: mkImg("images/bend_n_back/25_blockbuster_sick_deals.JPG"),
-            desc: "Mary Kate finding the sick deals."
-          },
-          {
-            img: mkImg("images/bend_n_back/26_bend_bacond.JPG"),
-            desc: "We ate lunch at a local sausage restaurant called Bangers & Brews. The owner was very nice and made an amazing homemade chimchurri that we bought a togo container of. And yes, this dish lead to some meat sweats."
-          },
-          {
-            img: mkImg("images/bend_n_back/27_beer.JPG"),
-            desc: "Next stop: the Deschutes Brewery Tasting Room for a flight of beer. Our favorite was their new King Crispy Pilsner, keep an eye out for it!"
-          },
-          {
-            img: mkImg("images/bend_n_back/28_mirror_pond.JPG"),
-            desc: "For dinner, we ate at the historical Pine Tavern restuarant in downtown. Here, Sean is drinking a Deschutes Mirror Pond Ale while enjoying the view of the actual Mirror Pond it's named after. Pretty neat."
-          },
-          {
-            img: mkImg("images/bend_n_back/29_hot_dogs_sean.JPG"),
-            desc: "On the way back from Oregon the next day, we ran into a 2 hour highway closure on the 101 at Crescent City, CA. Sean was stressed out until Mary Kate had the excellent idea to grill lunch on the side of the road."
-          },
-          {
-            img: mkImg("images/bend_n_back/31_hot_dogs_mk.JPG"),
-            desc: "The hot dogs came out great, and were even better with that chimchurri we bought the previous day. This was probably the finest roadside dining experience we'll ever have."
-          },
-          {
-            img: mkImg("images/bend_n_back/32_humboldt_camp.JPG"),
-            desc: "We spent our final night at the lovely Hidden Springs campground which is nearby Avenue of the Giants."
-          },
-          {
-            img: mkImg("images/bend_n_back/33_mk_panic.JPG"),
-            desc: "Mary Kate drives through the Shrine Tree in a mild state of panic near Avenue of the Giants. This is probably the best photo of the trip (zoom in on her facial expression.)"
-          },
-          {
-            img: mkImg("images/bend_n_back/34_giants_n_coffee.JPG"),
-            desc: "Sean enjoys a coffee from his thermos while Mary Kate drives down Avenue of the Giants."
-          },
-          {
-            img: mkImg("images/bend_n_back/35_founders.JPG"),
-            desc: "Our final stop of the trip: the famous Founders tree. This tree was the tallest known tree in the world from 1931 to 1957, standing at nearly 350 feet. It is currently the world's 5th tallest known tree."
-          },
-          {
-            img: mkImg("images/bend_n_back/36_founders_canopy.JPG"),
-            desc: "Another look at the famous Founder's tree. It's too big to fit in one photo!"
-          },
-          {
-            img: mkImg("images/bend_n_back/37_new_friend.JPG"),
-            desc: "Bonus stop: on the drive up a few days before, we passed by a store called Legend of Bigfoot. Mary Kate insisted that we stop there on the way back, where we picked up a new friend to take home."
-          }
-        ],
-        paintball: [
-          {
-            img: mkImg("images/paintball/IMG_3324.JPG"),
-            desc: "The crew went paintballing for Sean's bachelor party. It was full day of exhilariting fun and also a healthy dose of fear."
-          },
-          {
-            img: mkImg("images/paintball/IMG_3325.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3326.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3327.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3328.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3330.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3331.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3333.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3335.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3338.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3339.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3340.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3341.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3344.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3346.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3347.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3349.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3350.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3351.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3353.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3354.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3355.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3357.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3359.jpeg"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3360.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3361.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3362.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3363.jpeg"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3364.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3365.jpeg"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3366.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3367.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3368.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3369.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3370.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3372.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3373.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3375.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3376.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3378.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3379.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3380.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3381.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3382.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3383.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3384.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3386.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3387.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3389.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3391.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3392.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3393.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3394.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3395.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3396.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3397.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3398.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3399.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3400.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3407.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3408.JPG"),
-            desc: ""
-          },
-          {
-            img: mkImg("images/paintball/IMG_3410.JPG"),
-            desc: ""
-          }
-        ]
-      };
+      var currentAlbum;
+      var currentPhotoIdx;
+      var albumSelect = document.getElementById('albumSelect');
+      var photoAlbum = document.getElementById('photoAlbum');
+      var currentPhoto = document.getElementById('currentPhoto');
+      var currentPhotoDesc = document.getElementById('currentPhotoDesc');
+      var nextPhoto = document.getElementById('nextPhoto');
+      var prevPhoto = document.getElementById('prevPhoto');
+      var back = document.getElementById('back');
+      var fullscreenTip = document.getElementById('fullscreenTip');
+      var fullscreenEnabled = false
 
-      // Create an image element for each photo so it preloads
-      function mkImg(src) {
-        var img = new Image();
-        img.src = src;
-        return img
+      nextPhoto.addEventListener('click', function() {
+        currentPhotoIdx = setCurrentPhoto(currentPhotoIdx + 1);
+      });
+      prevPhoto.addEventListener('click', function() {
+        currentPhotoIdx = setCurrentPhoto(currentPhotoIdx - 1);
+      });
+      currentPhoto.addEventListener('click', function() {
+        currentPhoto.className = fullscreenEnabled ? "fullScreen" : "";
+        fullscreenEnabled = !fullscreenEnabled;
+      });
+      back.addEventListener('click', function(e) {
+        e.preventDefault();
+        albumSelect.style.display = 'block';
+        photoAlbum.style.display = 'none';
+      });
+
+      document.addEventListener('click', function (e) {
+	      if (!e.target.matches('.albumLink')) return;
+	      e.preventDefault();
+	      selectAlbum(e.target.dataset.name);
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight') {
+          currentPhotoIdx = setCurrentPhoto(currentPhotoIdx + 1);
+        } else if (e.key === 'ArrowLeft') {
+          currentPhotoIdx = setCurrentPhoto(currentPhotoIdx - 1);
+        } else if (e.key === 'ArrowUp') {
+          currentPhoto.className = "fullScreen";
+          fullscreenEnabled = true
+        } else if (e.key === 'ArrowDown' || e.key === 'Escape') {
+          currentPhoto.className = "";
+          fullscreenEnabled = false
+        }
+      });
+
+      var AJAX_LOADER = mkImg("images/ajax_loader.gif");
+      currentPhoto.src = AJAX_LOADER.src;
+
+      function renderAlbums(albums) {
+        albums.forEach(album => {
+          var a = document.createElement("a");
+          a.href = '#';
+
+          var h1 = document.createElement("h1");
+          h1.className = 'albumLink';
+          h1.innerHTML = album["title"];
+          h1.dataset.name = album["name"];
+
+          var img = document.createElement("img");
+          img.className = 'albumLink';
+          img.dataset.name = album["name"];
+          img.src = photoPath(album["name"], album["thumbnail"]);
+          img.height = '200';
+
+          var p = document.createElement("p");
+          p.innerHTML = album["description"];
+
+          a.appendChild(h1);
+          albumSelect.appendChild(a);
+          albumSelect.appendChild(img);
+          albumSelect.appendChild(p);
+        });
+      }
+
+      function selectAlbum(albumName) {
+        fetch(albumMetadataPath(albumName))
+          .then(response => response.json())
+          .then(album => {
+            currentAlbum = album;
+            currentPhotoIdx = setCurrentPhoto(0);
+            albumSelect.style.display = 'none';
+            photoAlbum.style.display = 'block';
+          });
       }
 
       function setCurrentPhoto(newPhotoIdx) {
-        if (newPhotoIdx < 0 || newPhotoIdx >= photos[currentAlbum].length) { return; }
+        if (!currentAlbum) { return 0; }
+        if (newPhotoIdx < 0) { return 0; }
+        if (newPhotoIdx >= currentAlbum.photos.length) { return currentAlbum.photos.length - 1; }
+        currentPhoto.src = AJAX_LOADER.src;
 
-        // Set the new current photo
-        currentPhoto.src = photos[currentAlbum][newPhotoIdx].img.src;
-        currentPhoto.alt = photos[currentAlbum][newPhotoIdx].desc;
-        var description = photos[currentAlbum][newPhotoIdx].desc;
-        if (description != "") {
-          currentPhotoDesc.innerHTML = photos[currentAlbum][newPhotoIdx].desc;
-        } else {
-          currentPhotoDesc.innerHTML = (newPhotoIdx + 1) + " of " + photos[currentAlbum].length
-        }
+        var newPhotoPath = photoPath(currentAlbum.name, currentAlbum.photos[newPhotoIdx].filename);
+        currentPhoto.src = mkImg(newPhotoPath).src;
+        currentPhoto.alt = currentAlbum.photos[newPhotoIdx].desc;
 
-        // Update the button state
+        currentPhotoDesc.innerHTML = currentAlbum.photos[newPhotoIdx].desc;
+        currentPhotoCounter.innerHTML = (newPhotoIdx + 1) + " of " + currentAlbum.photos.length
+
         switch(newPhotoIdx) {
           case 0:
             nextPhoto.style.display = 'inline';
             prevPhoto.style.display = 'none';
             break;
-          case (photos[currentAlbum].length - 1):
+          case (currentAlbum.photos.length - 1):
             nextPhoto.style.display = 'none';
             prevPhoto.style.display = 'inline';
             break;
@@ -526,49 +196,33 @@
             prevPhoto.style.display = 'inline';
         }
 
+        if (newPhotoIdx == 0) {
+          fullscreenTip.style.display = 'block';
+        } else {
+          fullscreenTip.style.display = 'none';
+        }
         return newPhotoIdx;
       }
 
+      function mkImg(src) {
+        var img = new Image();
+        img.src = src;
+        return img
+      }
 
-      var currentPhoto = document.getElementById('currentPhoto');
-      var currentPhotoDesc = document.getElementById('currentPhotoDesc');
-      var nextPhoto = document.getElementById('nextPhoto');
-      var prevPhoto = document.getElementById('prevPhoto');
-      var currentPhotoIdx = setCurrentPhoto(0);
-      nextPhoto.addEventListener('click', function() {
-        currentPhotoIdx = setCurrentPhoto(currentPhotoIdx + 1);
-      });
-      prevPhoto.addEventListener('click', function() {
-        currentPhotoIdx = setCurrentPhoto(currentPhotoIdx - 1);
-      });
+      function albumMetadataPath(albumName) {
+        return "/images/photo_albums/" + albumName+ "/album.json";
+      }
 
-      var bendAlbum = document.getElementById('bend_album');
-      var paintballAlbum = document.getElementById('paintball_album');
-      bendAlbum.addEventListener('click', function(e) {
-        e.preventDefault();
-        bendAlbum.className = "current-page"
-        paintball_album.className = ""
-        currentAlbum = "bend_n_back"
-        currentPhotoIdx = setCurrentPhoto(0);
-      });
-      paintballAlbum.addEventListener('click', function(e) {
-        e.preventDefault();
-        bendAlbum.className = ""
-        paintball_album.className = "current-page"
-        currentAlbum = "paintball"
-        currentPhotoIdx = setCurrentPhoto(0);
-      });
+      function photoPath(albumName, filename) {
+        return "/images/photo_albums/" + albumName + "/" + filename;
+      }
 
-      var fullscreenEnabled = false
-      currentPhoto.addEventListener('click', function() {
-        if (fullscreenEnabled) {
-         fullscreenEnabled = false;
-         currentPhoto.className = "";
-        } else {
-         fullscreenEnabled = true;
-         currentPhoto.className = "fullScreen";
-        }
-      });
+      fetch("images/photo_albums/albums.json")
+        .then(response => response.json())
+        .then(albums => {
+          renderAlbums(albums);
+        });
     });
   </script>
 </footer>
