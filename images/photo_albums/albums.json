@@ -1,5 +1,16 @@
 [
   {
+    "name": "wedding",
+    "title": "The Big Day",
+    "description": "Our ceremony and reception!"
+  },
+  {
+    "name": "costa_rica",
+    "title": "Costa Rica Honeymoon",
+    "description": "We flew to Costa Rica right after the wedding for 10 days of pure enjoyment. To our great surprise, the trip was mostly paid for by our honeymoon fund. THANK YOU to all of our lovely guests who contributed!",
+    "thumbnail": "16b_springs.JPG"
+  },
+  {
     "name": "bend_n_back",
     "title": "Trip to Bend, OR",
     "description": "In early June 2021, Sean and Mary Kate went on a 'pre-honeymoon' road trip up to Bend, OR and back with some camping hiking, and thin spaces along the way.",
