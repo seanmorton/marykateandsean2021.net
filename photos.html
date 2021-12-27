@@ -173,7 +173,10 @@
         if (!currentAlbum) { return 0; }
         if (newPhotoIdx < 0) { return 0; }
         if (newPhotoIdx >= currentAlbum.photos.length) { return currentAlbum.photos.length - 1; }
-        currentPhoto.src = AJAX_LOADER.src;
+
+        if (!fullscreenEnabled) {
+          currentPhoto.src = AJAX_LOADER.src;
+        }
 
         var newPhotoPath = photoPath(currentAlbum.name, currentAlbum.photos[newPhotoIdx].filename);
         currentPhoto.src = mkImg(newPhotoPath).src;
