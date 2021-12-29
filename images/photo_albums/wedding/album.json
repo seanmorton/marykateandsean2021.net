@@ -7,23 +7,7 @@
       "desc": ""
     },
     {
-      "filename": "37.jpg",
-      "desc": ""
-    },
-    {
-      "filename": "43.jpg",
-      "desc": ""
-    },
-    {
-      "filename": "53.jpg",
-      "desc": ""
-    },
-    {
       "filename": "92.jpg",
-      "desc": ""
-    },
-    {
-      "filename": "88.jpg",
       "desc": ""
     },
     {
@@ -39,14 +23,6 @@
       "desc": ""
     },
     {
-      "filename": "207.jpg",
-      "desc": ""
-    },
-    {
-      "filename": "211.jpg",
-      "desc": ""
-    },
-    {
       "filename": "213.jpg",
       "desc": ""
     },
@@ -56,6 +32,30 @@
     },
     {
       "filename": "224.jpg",
+      "desc": ""
+    },
+    {
+      "filename": "211.jpg",
+      "desc": ""
+    },
+    {
+      "filename": "37.jpg",
+      "desc": ""
+    },
+    {
+      "filename": "43.jpg",
+      "desc": ""
+    },
+    {
+      "filename": "53.jpg",
+      "desc": ""
+    },
+    {
+      "filename": "88.jpg",
+      "desc": ""
+    },
+    {
+      "filename": "207.jpg",
       "desc": ""
     },
     {
@@ -292,11 +292,11 @@
     },
     {
       "filename": "786.jpg",
-      "desc": ""
+      "desc": "THE RUNNER UP!"
     },
     {
       "filename": "788.jpg",
-      "desc": ""
+      "desc": "THE CHAMPION!"
     },
     {
       "filename": "791.jpg",
@@ -407,19 +407,15 @@
       "desc": ""
     },
     {
+      "filename": "944.jpg",
+      "desc": ""
+    },
+    {
       "filename": "935.jpg",
       "desc": ""
     },
     {
       "filename": "940.jpg",
-      "desc": ""
-    },
-    {
-      "filename": "944.jpg",
-      "desc": ""
-    },
-    {
-      "filename": "",
       "desc": ""
     }
   ]
