@@ -2,24 +2,22 @@
   table-layout: fixed;
   width: 100%;
 }
+
 #photoAlbum td {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   text-align: center;
 }
-#photoAlbum th.prev {
-  width: 10%;
-}
-#photoAlbum th.next {
-  width: 10%;
-}
+
 #photoAlbum th.photo {
-  width: 80%;
+  width: 100%;
 }
+
 #photoAlbum #currentPhoto {
   width: 100%;
 }
+
 #photoAlbum p {
   text-align: center;
 }
@@ -39,8 +37,19 @@
   object-fit: contain;
 }
 
+#photoControls {
+  text-align: center;
+}
+
+#photoControls * {
+  display: inline;
+  padding: 0 10px
+}
+
 #prevPhoto, #nextPhoto {
   width: 50px;
   height: 50px;
   border-radius: 0;
 }
+
+

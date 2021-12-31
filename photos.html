@@ -55,28 +55,13 @@
       </div>
       <div id="photoAlbum" style="display:none;">
         <a href="#"><h1 id="back">&lt; Back</h1></a>
-        <table>
-          <thead>
-            <tr>
-              <th class="prev">
-              <th class="photo">
-              <th class="next">
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><button id="prevPhoto" style="display: none;">&lt;</button></td>
-              <td><img id="currentPhoto" src=""></td>
-              <td><button id="nextPhoto" style="display: none">&gt;</button></td>
-            </tr>
-          </tbody>
-        </table>
+        <img id="currentPhoto" src="">
         <div id="photoControls">
-          <button id="prevPhotos">&lt;</button>
+          <button id="prevPhoto">&lt;</button>
           <p id="currentPhotoCounter"></p>
-          <button id="nextPhotos">&gt;</button>
-          <p id="currentPhotoDesc"></p>
+          <button id="nextPhoto">&gt;</button>
         </div>
+        <p id="currentPhotoDesc"></p>
         <p id="fullscreenTip">Tip: Click a photo to view it in fullscreen.</p>
       </div>
     </div>
