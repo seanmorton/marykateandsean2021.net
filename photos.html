@@ -226,7 +226,7 @@
             console.log("image loaded", imageSrc);
           }
         }
-        return await new Promise(() => setTimeout(() => photoIdx, 3000));
+        await new Promise(() => setTimeout(() => photoIdx, 3000));
         //return photoIdx;
       }
 
