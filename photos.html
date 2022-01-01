@@ -179,10 +179,11 @@
               currentPhotoIdx = setCurrentPhoto(newPhotoIdx);
             } else {
               console.log("photo has since changed");
-              return;
             }
           });
+          return;
         }
+
         console.log("actually setting now", newPhotoIdx);
 
         currentPhoto.src = images[newPhotoSrc].src;
