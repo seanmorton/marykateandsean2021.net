@@ -71,6 +71,7 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       var AJAX_LOADER_SRC = "images/ajax_loader.gif";
+      var PRELOAD_COUNT = 5;
 
       var currentAlbum;
       var currentPhotoIdx;
@@ -165,14 +166,16 @@
         if (newPhotoIdx < 0) { return 0; }
         if (newPhotoIdx >= currentAlbum.photos.length) { return currentAlbum.photos.length - 1; }
 
-        if (!fullscreenEnabled) {
-          currentPhoto.src = AJAX_LOADER_SRC;
+
+        if (newPhotoIdx % PRELOAD_COUNT === 0) {
+          if (!fullscreenEnabled) {
+            currentPhoto.src = AJAX_LOADER_SRC;
+          }
+          loadImages(newPhotoIdx);
         }
 
-        loadImages(newPhotoIdx);
         var newPhotoSrc = photoPath(currentAlbum.name, currentAlbum.photos[newPhotoIdx].filename);
         var newPhotoAlt = currentAlbum.photos[newPhotoIdx].desc;
-
         currentPhoto.src = images[newPhotoSrc].src;
         currentPhoto.alt = newPhotoAlt;
         currentPhotoDesc.innerHTML = newPhotoAlt;
@@ -202,7 +205,7 @@
 
       // Preloads the next 5 images.
       function loadImages(newPhotoIdx) {
-        var upToIdx = Math.min(newPhotoIdx + 5, (currentAlbum.photos.length))
+        var upToIdx = Math.min(newPhotoIdx + PRELOAD_COUNT, (currentAlbum.photos.length))
 
         for (var i = newPhotoIdx; i < upToIdx; i++) {
           var imageSrc = photoPath(currentAlbum.name, currentAlbum.photos[i].filename);
