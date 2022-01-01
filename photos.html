@@ -162,6 +162,7 @@
       }
 
       function setCurrentPhoto(newPhotoIdx) {
+        console.log("setCurrentPhoto", newPhotoIdx, currentAlbum);
         if (!currentAlbum) { return 0; }
         if (newPhotoIdx < 0) { return 0; }
         if (newPhotoIdx >= currentAlbum.photos.length) { return currentAlbum.photos.length - 1; }
