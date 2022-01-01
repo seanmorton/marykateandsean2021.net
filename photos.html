@@ -166,7 +166,7 @@
         if (newPhotoIdx < 0) { return 0; }
         if (newPhotoIdx >= currentAlbum.photos.length) { return currentAlbum.photos.length - 1; }
 
-        consoloe.log("set photo", newPhotoIdx, currentAlbum.photos)
+        console.log("set photo", newPhotoIdx, currentAlbum.photos)
         var newPhotoSrc = photoPath(currentAlbum.name, currentAlbum.photos[newPhotoIdx].filename);
         var newPhotoAlt = currentAlbum.photos[newPhotoIdx].desc;
 
