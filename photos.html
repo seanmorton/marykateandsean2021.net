@@ -88,7 +88,6 @@
 
       nextPhoto.addEventListener('click', function() {
         currentPhotoIdx = setCurrentPhoto(currentPhotoIdx + 1);
-        console.log("current photo idx", currentPhotoIdx);
       });
       prevPhoto.addEventListener('click', function() {
         currentPhotoIdx = setCurrentPhoto(currentPhotoIdx - 1);
@@ -167,7 +166,6 @@
         if (newPhotoIdx < 0) { return 0; }
         if (newPhotoIdx >= currentAlbum.photos.length) { return currentAlbum.photos.length - 1; }
 
-        console.log("set photo", newPhotoIdx, currentAlbum.photos)
         var newPhotoSrc = photoPath(currentAlbum.name, currentAlbum.photos[newPhotoIdx].filename);
         var newPhotoAlt = currentAlbum.photos[newPhotoIdx].desc;
 
@@ -175,16 +173,14 @@
           console.log("preloading", newPhotoIdx);
           currentPhoto.src = AJAX_LOADER_SRC;
           preloadImages(newPhotoIdx).then(fetchedIdx => {
-            console.log("promise", fetchedIdx);
-            if (newPhotoIdx === fetchedIdx) {
+            if (currentPhotoIdx === fetchedIdx) {
               console.log("photo fetched, setting");
               currentPhotoIdx = setCurrentPhoto(newPhotoIdx);
-              console.log("current photo idx", currentPhotoIdx);
             } else {
               console.log("photo has since changed");
             }
           });
-          return newPhotoIdx;
+          return currentPhotoIdx;;
         }
         console.log("cache hit - setting", newPhotoIdx);
 
