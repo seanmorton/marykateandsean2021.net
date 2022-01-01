@@ -172,7 +172,7 @@
         if (newPhotoIdx % PRELOAD_BATCH_SIZE === 0 && images[newPhotoSrc] === undefined) {
           console.log("preloading", newPhotoIdx);
           currentPhoto.src = AJAX_LOADER_SRC;
-          preloadImages(newPhotoIdx).then(function(fetchedIdx) {
+          preloadImages(newPhotoIdx).then(fetchedIdx => {
             console.log("promise", fetchedIdx);
             if (newPhotoIdx === fetchedIdx) {
               console.log("photo fetched, setting");
