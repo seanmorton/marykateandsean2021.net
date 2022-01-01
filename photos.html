@@ -225,8 +225,8 @@
             console.log("image loaded", imageSrc);
           }
         }
-        sleep(3000);
-        return photoIdx;
+        return await new Promise(() => setTimeout(() => photoIdx, 3000));
+        //return photoIdx;
       }
 
       function albumMetadataPath(albumName) {
