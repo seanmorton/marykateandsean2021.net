@@ -92,6 +92,7 @@
       currentPhoto.addEventListener('click', function() {
         currentPhoto.className = fullscreenEnabled ? "fullScreen" : "";
         fullscreenEnabled = !fullscreenEnabled;
+        console.log("click", fullscreenEnabled);
       });
       back.addEventListener('click', function(e) {
         e.preventDefault();
@@ -164,7 +165,7 @@
         if (newPhotoIdx < 0) { return 0; }
         if (newPhotoIdx >= currentAlbum.photos.length) { return currentAlbum.photos.length - 1; }
 
-        console.log(fullscreenEnabled);
+        console.log("setPhoto", fullscreenEnabled);
         if (!fullscreenEnabled) {
           currentPhoto.src = AJAX_LOADER.src;
         }
