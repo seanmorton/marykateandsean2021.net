@@ -170,9 +170,20 @@
         var newPhotoAlt = currentAlbum.photos[newPhotoIdx].desc;
 
         if (newPhotoIdx % PRELOAD_BATCH_SIZE === 0 && images[newPhotoSrc] === undefined) {
+          console.log("preloading", newPhotoIdx);
           currentPhoto.src = AJAX_LOADER_SRC;
-          preloadImages(newPhotoIdx);
+          preloadImages(newPhotoIdx).then(function(fetchedIdx) {
+            if (newPhotoIdx === fetchedIdx) {
+              console.log("photo fetched, setting");
+              setCurrentPhoto(newPhotoIdx);
+            } else {
+              console.log("photo has since changed");
+            }
+          });
+          return;
         }
+        console.log("cache hit", newPhotoIdx);
+
         currentPhoto.src = images[newPhotoSrc].src;
         currentPhoto.alt = newPhotoAlt;
         currentPhotoDesc.innerHTML = newPhotoAlt;
@@ -200,10 +211,10 @@
         return newPhotoIdx;
       }
 
-      function preloadImages(newPhotoIdx) {
-        var upToIdx = Math.min(newPhotoIdx + PRELOAD_BATCH_SIZE, (currentAlbum.photos.length))
+      async function preloadImages(photoIdx) {
+        var upToIdx = Math.min(photoIdx + PRELOAD_BATCH_SIZE, (currentAlbum.photos.length))
 
-        for (var i = newPhotoIdx; i < upToIdx; i++) {
+        for (var i = photoIdx; i < upToIdx; i++) {
           var imageSrc = photoPath(currentAlbum.name, currentAlbum.photos[i].filename);
           if (images[imageSrc] === undefined) {
             var img = new Image();
@@ -211,7 +222,7 @@
             images[imageSrc] = img;
           }
         }
-        console.log(images);
+        return photoIdx;
       }
 
       function albumMetadataPath(albumName) {
