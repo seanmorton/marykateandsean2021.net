@@ -172,6 +172,7 @@
         if (newPhotoIdx % PRELOAD_BATCH_SIZE === 0 && images[newPhotoSrc] === undefined) {
           console.log("preloading", newPhotoIdx);
           currentPhoto.src = AJAX_LOADER_SRC;
+              then(result => doSomethingElse(result))
           preloadImages(newPhotoIdx).then(fetchedIdx => {
             console.log("promise", fetchedIdx);
             if (newPhotoIdx === fetchedIdx) {
@@ -179,11 +180,11 @@
               currentPhotoIdx = setCurrentPhoto(newPhotoIdx);
             } else {
               console.log("photo has since changed");
+              return;
             }
           });
-          return;
         }
-        console.log("cache hit", newPhotoIdx);
+        console.log("actually setting now", newPhotoIdx);
 
         currentPhoto.src = images[newPhotoSrc].src;
         currentPhoto.alt = newPhotoAlt;
