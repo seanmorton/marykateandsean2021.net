@@ -215,19 +215,22 @@
       async function preloadImages(photoIdx) {
         var upToIdx = Math.min(photoIdx + PRELOAD_BATCH_SIZE, (currentAlbum.photos.length))
 
-        for (var i = photoIdx; i < upToIdx; i++) {
-          var imageSrc = photoPath(currentAlbum.name, currentAlbum.photos[i].filename);
-          if (images[imageSrc] === undefined) {
-            var img = new Image();
-            img.src = imageSrc;
-            images[imageSrc] = img;
+        await new Promise(resolve () => {
+          for (var i = photoIdx; i < upToIdx; i++) {
+            var imageSrc = photoPath(currentAlbum.name, currentAlbum.photos[i].filename);
+            if (images[imageSrc] === undefined) {
+              var img = new Image();
+              if (i === (upToIdx - 1)) {
+                img.onload = function() {
+                console.log("image loaded", i, imageSrc);
+                resolve(photoIdx);
+              }
+              img.src = imageSrc;
+              images[imageSrc] = img;
+            }
+
           }
-          images[imageSrc].onload = function() {
-            console.log("image loaded", imageSrc);
-          }
-        }
-        await new Promise(() => setTimeout(() => photoIdx, 3000));
-        //return photoIdx;
+        });
       }
 
       function albumMetadataPath(albumName) {
