@@ -205,6 +205,7 @@
 
       // Preloads the next 5 images.
       function loadImages(newPhotoIdx) {
+        console.log("loadImages", i);
         var upToIdx = Math.min(newPhotoIdx + PRELOAD_COUNT, (currentAlbum.photos.length))
 
         for (var i = newPhotoIdx; i < upToIdx; i++) {
@@ -214,6 +215,8 @@
             var img = new Image();
             img.src = imageSrc;
             images[imageSrc] = img;
+          } else {
+            console.log("cache hit", i);
           }
         }
       }
