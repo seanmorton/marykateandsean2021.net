@@ -173,6 +173,7 @@
           console.log("preloading", newPhotoIdx);
           currentPhoto.src = AJAX_LOADER_SRC;
           preloadImages(newPhotoIdx).then(function(fetchedIdx) {
+            console.log("promise", fetchedIdx);
             if (newPhotoIdx === fetchedIdx) {
               console.log("photo fetched, setting");
               currentPhotoIdx = setCurrentPhoto(newPhotoIdx);
