@@ -176,7 +176,7 @@
           preloadImages(newPhotoIdx).then(function(fetchedIdx) {
             if (newPhotoIdx === fetchedIdx) {
               console.log("photo fetched, setting");
-              setCurrentPhoto(newPhotoIdx);
+              currentPhotoIdx = setCurrentPhoto(newPhotoIdx);
             } else {
               console.log("photo has since changed");
             }
