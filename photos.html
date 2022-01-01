@@ -226,8 +226,8 @@
             var img = new Image();
             if (i === (upToIdx - 1)) {
               img.onload = function() {
-                console.log("image loaded", i, imageSrc);
-                resolve(0);
+                console.log("image loaded", photoIdx, imageSrc);
+                resolve(photoIdx);
               }
             }
             img.onerror = reject;
