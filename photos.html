@@ -202,7 +202,7 @@
 
       // Preloads the next 5 images.
       function loadImages(newPhotoIdx) {
-        var upToIdx = Math.max(newPhotoIdx + 5, (currentAlbum.photos.length))
+        var upToIdx = Math.min(newPhotoIdx + 5, (currentAlbum.photos.length))
 
         for (var i = newPhotoIdx; i < upToIdx; i++) {
           var imageSrc = photoPath(currentAlbum.name, currentAlbum.photos[i].filename);
