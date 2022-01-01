@@ -70,6 +70,8 @@
 <footer>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      var AJAX_LOADER_SRC = "images/ajax_loader.gif";
+
       var currentAlbum;
       var currentPhotoIdx;
       var images = {};
@@ -119,8 +121,7 @@
         }
       });
 
-      var AJAX_LOADER = mkImg("images/ajax_loader.gif");
-      currentPhoto.src = AJAX_LOADER.src;
+      currentPhoto.src = AJAX_LOADER_SRC;
 
       function renderAlbums(albums) {
         albums.forEach(album => {
@@ -165,7 +166,7 @@
         if (newPhotoIdx >= currentAlbum.photos.length) { return currentAlbum.photos.length - 1; }
 
         if (!fullscreenEnabled) {
-          currentPhoto.src = AJAX_LOADER.src;
+          currentPhoto.src = AJAX_LOADER_SRC;
         }
 
         loadImages(newPhotoIdx);
