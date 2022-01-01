@@ -170,9 +170,7 @@
         var newPhotoAlt = currentAlbum.photos[newPhotoIdx].desc;
 
         if (newPhotoIdx % PRELOAD_BATCH_SIZE === 0 && images[newPhotoSrc] === undefined) {
-          //if (!fullscreenEnabled) {
-          //  currentPhoto.src = AJAX_LOADER_SRC;
-          //}
+          currentPhoto.src = AJAX_LOADER_SRC;
           preloadImages(newPhotoIdx);
         }
         currentPhoto.src = images[newPhotoSrc].src;
@@ -203,20 +201,17 @@
       }
 
       function preloadImages(newPhotoIdx) {
-        console.log("loadImages", i);
         var upToIdx = Math.min(newPhotoIdx + PRELOAD_BATCH_SIZE, (currentAlbum.photos.length))
 
         for (var i = newPhotoIdx; i < upToIdx; i++) {
           var imageSrc = photoPath(currentAlbum.name, currentAlbum.photos[i].filename);
           if (images[imageSrc] === undefined) {
-            console.log("fetching", i);
             var img = new Image();
             img.src = imageSrc;
             images[imageSrc] = img;
-          } else {
-            console.log("cache hit", i);
           }
         }
+        console.log(images);
       }
 
       function albumMetadataPath(albumName) {
