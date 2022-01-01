@@ -62,7 +62,7 @@
           <button id="nextPhoto">&gt;</button>
         </div>
         <p id="currentPhotoDesc"></p>
-        <p id="fullscreenTip">Tip: Click a photo to view it in fullscreen.</p>
+        <p id="fullscreenTip">Tip: Click a photo to view it in fullscreen. You can also use the arrow keys.</p>
       </div>
     </div>
   </div>
@@ -192,16 +192,16 @@
 
         switch(newPhotoIdx) {
           case 0:
-            nextPhoto.style.display = 'inline';
-            prevPhoto.style.display = 'none';
+            nextPhoto.style.visibility = 'visible';
+            prevPhoto.style.visibility = 'hidden';
             break;
           case (currentAlbum.photos.length - 1):
-            nextPhoto.style.display = 'none';
-            prevPhoto.style.display = 'inline';
+            nextPhoto.style.visibility = 'hidden';
+            prevPhoto.style.visibility = 'visible';
             break;
           default:
-            nextPhoto.style.display = 'inline';
-            prevPhoto.style.display = 'inline';
+            nextPhoto.style.visibility = 'visible';
+            prevPhoto.style.visibility = 'visible';
         }
 
         if (newPhotoIdx == 0) {
