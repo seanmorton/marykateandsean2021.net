@@ -167,10 +167,10 @@
         if (newPhotoIdx >= currentAlbum.photos.length) { return currentAlbum.photos.length - 1; }
 
 
-        if (newPhotoIdx % PRELOAD_COUNT === 0) {
-          if (!fullscreenEnabled) {
-            currentPhoto.src = AJAX_LOADER_SRC;
-          }
+        if (newPhotoIdx % PRELOAD_COUNT === 0 && images[newPhotoIdx] === undefined) {
+          //if (!fullscreenEnabled) {
+          //  currentPhoto.src = AJAX_LOADER_SRC;
+          //}
           loadImages(newPhotoIdx);
         }
 
