@@ -217,10 +217,10 @@
           var img = new Image();
           img.onload = function() {
             if (currentPhotoIdx === i) {
-              console.log("loaded and current photo, setting", i)
+              console.log("loaded and current photo, setting", i);
               setCurrentPhoto(i)
             } else {
-              console.log("loaded but not current, ignoring", i)
+              console.log("loaded but not current, ignoring", i);
             };
           }
           img.src = imageSrc;
