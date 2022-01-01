@@ -215,12 +215,13 @@
           if (images[imageSrc] !== undefined) { continue; }
 
           var img = new Image();
+          img.dataset.index = i;
           img.onload = function() {
-            if (currentPhotoIdx === i) {
-              console.log("loaded and current photo, setting", i);
-              setCurrentPhoto(i);
+            if (img.dataset.index === currentPhotoIdx) {
+              console.log("loaded and current photo, setting", img.dataset.index);
+              setCurrentPhoto(img.dataset.index);
             } else {
-              console.log("loaded but not current, ignoring", i);
+              console.log("loaded but not current, ignoring", img.dataset.index);
             };
           }
           img.src = imageSrc;
