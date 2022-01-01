@@ -72,7 +72,7 @@
     document.addEventListener('DOMContentLoaded', function() {
       var currentAlbum;
       var currentPhotoIdx;
-      var images = [];
+      var images = {};
       var albumSelect = document.getElementById('albumSelect');
       var photoAlbum = document.getElementById('photoAlbum');
       var currentPhoto = document.getElementById('currentPhoto');
@@ -168,11 +168,11 @@
           currentPhoto.src = AJAX_LOADER.src;
         }
 
-        var newPhotoSrc = photoPath(currentAlbum.name, currentAlbum.photos[newPhotoIdx].filename);
+        loadImages(newPhotoIdx);
+        var newPhotoSrc = photoPath(currentAlbum.name, currentAlbum.photos[newPhotoSrc].filename);
         var newPhotoAlt = currentAlbum.photos[newPhotoIdx].desc;
-        var newPhoto = mkImg(newPhotoSrc);
 
-        currentPhoto.src = newPhoto.src;
+        currentPhoto.src = images[newPhotoSrc].src;
         currentPhoto.alt = newPhotoAlt;
         currentPhotoDesc.innerHTML = newPhotoAlt;
         currentPhotoCounter.innerHTML = (newPhotoIdx + 1) + " of " + currentAlbum.photos.length
@@ -199,10 +199,19 @@
         return newPhotoIdx;
       }
 
-      function mkImg(src) {
-        var img = new Image();
-        img.src = src;
-        return img
+      // Preloads the next 5 images.
+      function loadImages(newPhotoIdx) {
+        var upToIdx = Math.max(newPhotoIdx + 5, (currentAlbum.photos.length))
+
+        for (var i = newPhotoIdx; i < upToIdx; i++) {
+          var imageSrc = photoPath(currentAlbum.name, currentAlbum.photos[i].filename);
+          if (images[imageSrc] === undefined) {
+            console.log("fetching", i);
+            var img = new Image();
+            img.src = imageSrc;
+            images[imageSrc] = img;
+          }
+        }
       }
 
       function albumMetadataPath(albumName) {
