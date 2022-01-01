@@ -71,7 +71,7 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       var AJAX_LOADER_SRC = "images/ajax_loader.gif";
-      var PRELOAD_COUNT = 5;
+      var PRELOAD_BATCH_SIZE = 5;
 
       var currentAlbum;
       var currentPhotoIdx;
@@ -166,16 +166,15 @@
         if (newPhotoIdx < 0) { return 0; }
         if (newPhotoIdx >= currentAlbum.photos.length) { return currentAlbum.photos.length - 1; }
 
+        var newPhotoSrc = photoPath(currentAlbum.name, currentAlbum.photos[newPhotoIdx].filename);
+        var newPhotoAlt = currentAlbum.photos[newPhotoIdx].desc;
 
-        if (newPhotoIdx % PRELOAD_COUNT === 0 && images[newPhotoIdx] === undefined) {
+        if (newPhotoIdx % PRELOAD_BATCH_SIZE === 0 && images[newPhotoSrc] === undefined) {
           //if (!fullscreenEnabled) {
           //  currentPhoto.src = AJAX_LOADER_SRC;
           //}
           loadImages(newPhotoIdx);
         }
-
-        var newPhotoSrc = photoPath(currentAlbum.name, currentAlbum.photos[newPhotoIdx].filename);
-        var newPhotoAlt = currentAlbum.photos[newPhotoIdx].desc;
         currentPhoto.src = images[newPhotoSrc].src;
         currentPhoto.alt = newPhotoAlt;
         currentPhotoDesc.innerHTML = newPhotoAlt;
@@ -203,10 +202,9 @@
         return newPhotoIdx;
       }
 
-      // Preloads the next 5 images.
-      function loadImages(newPhotoIdx) {
+      function preloadImages(newPhotoIdx) {
         console.log("loadImages", i);
-        var upToIdx = Math.min(newPhotoIdx + PRELOAD_COUNT, (currentAlbum.photos.length))
+        var upToIdx = Math.min(newPhotoIdx + PRELOAD_BATCH_SIZE, (currentAlbum.photos.length))
 
         for (var i = newPhotoIdx; i < upToIdx; i++) {
           var imageSrc = photoPath(currentAlbum.name, currentAlbum.photos[i].filename);
