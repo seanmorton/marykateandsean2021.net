@@ -162,7 +162,6 @@
       }
 
       function setCurrentPhoto(newPhotoIdx) {
-        console.log("setCurrentPhoto", newPhotoIdx, currentAlbum);
         if (!currentAlbum) { return 0; }
         if (newPhotoIdx < 0) { return 0; }
         if (newPhotoIdx >= currentAlbum.photos.length) { return currentAlbum.photos.length - 1; }
@@ -222,7 +221,11 @@
             img.src = imageSrc;
             images[imageSrc] = img;
           }
+          images[imageSrc].onload = function() {
+            console.log("image loaded", imageSrc);
+          }
         }
+        sleep(3000);
         return photoIdx;
       }
 
