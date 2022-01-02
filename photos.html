@@ -120,8 +120,6 @@
         }
       });
 
-      currentPhoto.src = AJAX_LOADER_SRC;
-
       function renderAlbums(albums) {
         albums.forEach(album => {
           var a = document.createElement("a");
@@ -165,6 +163,16 @@
         if (newPhotoIdx >= currentAlbum.photos.length) { return; }
 
         currentPhotoIdx = newPhotoIdx;
+        renderControlsAndDesc();
+        renderImage();
+      }
+
+      function renderControlsAndDesc() {
+        var imageAlt = currentAlbum.photos[currentPhotoIdx].desc;
+        currentPhoto.alt = imageAlt;
+        currentPhotoDesc.innerHTML = imageAlt;
+        currentPhotoCounter.innerHTML = (currentPhotoIdx + 1) + " of " + currentAlbum.photos.length
+
         switch(currentPhotoIdx) {
           case 0:
             nextPhoto.style.visibility = 'visible';
@@ -184,41 +192,39 @@
         } else {
           instructions.style.display = 'none';
         }
+      }
 
-        var imageAlt = currentAlbum.photos[currentPhotoIdx].desc;
-        currentPhoto.alt = imageAlt;
-        currentPhotoDesc.innerHTML = imageAlt;
-        currentPhotoCounter.innerHTML = (currentPhotoIdx + 1) + " of " + currentAlbum.photos.length
-
+      function renderImage() {
         var imageSrc = photoPath(currentAlbum.name, currentAlbum.photos[currentPhotoIdx].filename);
         if (images[imageSrc] !== undefined) {
-          console.log("cache hit", currentPhotoIdx, images);
+          console.log("cache hit", currentPhotoIdx);
           currentPhoto.src = images[imageSrc].src;
         } else {
           console.log("cache miss", currentPhotoIdx);
           currentPhoto.src = AJAX_LOADER_SRC;
+          loadImageBatch();
+        }
+      }
 
-          if (currentPhotoIdx % PRELOAD_BATCH_SIZE === 0) {
-            console.log("loading images", currentPhotoIdx);
+      function loadImageBatch() {
+        if (currentPhotoIdx % PRELOAD_BATCH_SIZE !== 0) { return; }
 
-            var batchEnd = Math.min(currentPhotoIdx + PRELOAD_BATCH_SIZE, (currentAlbum.photos.length));
-            for (var i = currentPhotoIdx; i < batchEnd; i++) {
-              loadImage(i).then(loadedIdx => {
-                if (loadedIdx === currentPhotoIdx) {
-                  console.log("loaded the current photo, setting", loadedIdx);
-                  setCurrentPhoto(loadedIdx);
-                } else {
-                  console.log("loaded a noncurrent photo", loadedIdx);
-                }
-              });
+        console.log("loading images", currentPhotoIdx);
+        var batchEnd = Math.min(currentPhotoIdx + PRELOAD_BATCH_SIZE, (currentAlbum.photos.length));
+        for (var i = currentPhotoIdx; i < batchEnd; i++) {
+          loadImage(i).then(loadedIdx => {
+            if (loadedIdx === currentPhotoIdx) {
+              console.log("loaded the current photo, setting", loadedIdx);
+              setCurrentPhoto(loadedIdx);
+            } else {
+              console.log("loaded a noncurrent photo", loadedIdx);
             }
-          }
+          });
         }
       }
 
       async function loadImage(photoIdx) {
         var imageSrc = photoPath(currentAlbum.name, currentAlbum.photos[photoIdx].filename);
-
         return new Promise((resolve, reject) => {
           if (images[imageSrc] !== undefined) { resolve(photoIdx); }
           var img = new Image();
