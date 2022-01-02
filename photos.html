@@ -192,7 +192,7 @@
           return;
         }
 
-        console.log("cache hit", currentPhotoIdx);
+        console.log("cache hit", currentPhotoIdx, images);
         currentPhoto.src = images[imageSrc].src;
         currentPhoto.alt = imageAlt;
         currentPhotoDesc.innerHTML = imageAlt;
