@@ -197,10 +197,8 @@
       function renderImage() {
         var imageSrc = photoPath(currentAlbum.name, currentAlbum.photos[currentPhotoIdx].filename);
         if (images[imageSrc] !== undefined) {
-          console.log("cache hit", currentPhotoIdx);
           currentPhoto.src = images[imageSrc].src;
         } else {
-          console.log("cache miss", currentPhotoIdx);
           currentPhoto.src = AJAX_LOADER_SRC;
           loadImageBatch();
         }
@@ -209,15 +207,11 @@
       function loadImageBatch() {
         if (currentPhotoIdx % PRELOAD_BATCH_SIZE !== 0) { return; }
 
-        console.log("loading images", currentPhotoIdx);
         var batchEnd = Math.min(currentPhotoIdx + PRELOAD_BATCH_SIZE, (currentAlbum.photos.length));
         for (var i = currentPhotoIdx; i < batchEnd; i++) {
           loadImage(i).then(loadedIdx => {
             if (loadedIdx === currentPhotoIdx) {
-              console.log("loaded the current photo, setting", loadedIdx);
               setCurrentPhoto(loadedIdx);
-            } else {
-              console.log("loaded a noncurrent photo", loadedIdx);
             }
           });
         }
