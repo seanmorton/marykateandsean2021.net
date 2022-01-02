@@ -196,7 +196,7 @@
         if (images[imageSrc] !== undefined) {
           console.log("cache hit", currentPhotoIdx, images);
           currentPhoto.src = images[imageSrc].src;
-        } else if {
+        } else {
           console.log("cache miss", currentPhotoIdx);
           currentPhoto.src = AJAX_LOADER_SRC;
 
