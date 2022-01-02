@@ -177,9 +177,9 @@
           if (currentPhotoIdx % PRELOAD_BATCH_SIZE === 0) {
             console.log("loading images", currentPhotoIdx);
 
-            var upToIdx = Math.min(photoIdx + PRELOAD_BATCH_SIZE, (currentAlbum.photos.length));
-            for (var i = photoIdx; i < upToIdx; i++) {
-              loadImage(i).then(loadedIdx = {
+            var batchEnd = Math.min(photoIdx + PRELOAD_BATCH_SIZE, (currentAlbum.photos.length));
+            for (var i = currentPhotoIdx; i < batchEnd; i++) {
+              loadImage(i).then(loadedIdx => {
                 if (loadedIdx === currentPhotoIdx) {
                   console.log("loaded the current photo, setting", loadedIdx);
                   setCurrentPhoto(loadedIdx);
