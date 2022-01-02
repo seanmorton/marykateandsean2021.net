@@ -4,7 +4,7 @@
   Mary Kate &amp; Sean 2021
   </title>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=yes">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=yes">
   <meta name="robots" content="noindex">
   <link rel="stylesheet" media="all" href="stylesheets/fonts.css">
   <link rel="stylesheet" media="all" href="stylesheets/style.css">
@@ -62,7 +62,7 @@
           <button id="nextPhoto">&gt;</button>
         </div>
         <p id="currentPhotoDesc"></p>
-        <p id="fullscreenTip">Tip: Click a photo to view it in fullscreen. You can also use the arrow keys.</p>
+        <p id="instructions">Tip: Click a photo to view it in fullscreen. You can also use the arrow keys.</p>
       </div>
     </div>
   </div>
@@ -83,7 +83,8 @@
       var nextPhoto = document.getElementById('nextPhoto');
       var prevPhoto = document.getElementById('prevPhoto');
       var back = document.getElementById('back');
-      var fullscreenTip = document.getElementById('fullscreenTip');
+      var instructions = document.getElementById('instructions');
+      var viewportMeta = document.querySelector('meta[name=viewport]');
       var fullscreenEnabled = false
 
       nextPhoto.addEventListener('click', function() {
@@ -93,8 +94,7 @@
         setCurrentPhoto(currentPhotoIdx - 1);
       });
       currentPhoto.addEventListener('click', function() {
-        fullscreenEnabled = !fullscreenEnabled;
-        currentPhoto.className = fullscreenEnabled ? "fullScreen" : "";
+        !fullscreenEnabled ? enterFullscreen() : exitFullscreen();
       });
       back.addEventListener('click', function(e) {
         e.preventDefault();
@@ -114,11 +114,9 @@
         } else if (e.key === 'ArrowLeft') {
           setCurrentPhoto(currentPhotoIdx - 1);
         } else if (e.key === 'ArrowUp') {
-          currentPhoto.className = "fullScreen";
-          fullscreenEnabled = true
+          enterFullscreen();
         } else if (e.key === 'ArrowDown' || e.key === 'Escape') {
-          currentPhoto.className = "";
-          fullscreenEnabled = false
+          exitFullscreen();
         }
       });
 
@@ -182,9 +180,9 @@
         }
 
         if (currentPhotoIdx == 0) {
-          fullscreenTip.style.display = 'block';
+          instructions.style.display = 'block';
         } else {
-          fullscreenTip.style.display = 'none';
+          instructions.style.display = 'none';
         }
 
         var imageAlt = currentAlbum.photos[currentPhotoIdx].desc;
@@ -239,6 +237,17 @@
 
       function photoPath(albumName, filename) {
         return "/images/photo_albums/" + albumName + "/" + filename;
+      }
+
+      function enterFullscreen() {
+        fullscreenEnabled = true;
+        currentPhoto.className = "fullScreen";
+      }
+
+      function exitFullscreen() {
+        fullscreenEnabled = false;
+        currentPhoto.className = "";
+        viewportmeta.setAttribute('content', "initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0");
       }
 
       fetch("images/photo_albums/albums.json")
