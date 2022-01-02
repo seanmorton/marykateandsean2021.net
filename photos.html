@@ -74,7 +74,7 @@
       var PRELOAD_BATCH_SIZE = 5;
 
       var currentAlbum;
-      var currentPhotoIdx;
+      var currentPhotoIdx = 0;
       var images = {};
       var albumSelect = document.getElementById('albumSelect');
       var photoAlbum = document.getElementById('photoAlbum');
@@ -162,9 +162,9 @@
       }
 
       function setCurrentPhoto(newPhotoIdx) {
-        if (!currentAlbum) { return 0; }
-        if (newPhotoIdx < 0) { return 0; }
-        if (newPhotoIdx >= currentAlbum.photos.length) { return currentAlbum.photos.length - 1; }
+        if (!currentAlbum) { return; }
+        if (newPhotoIdx < 0) { return; }
+        if (newPhotoIdx >= currentAlbum.photos.length) { return; }
         currentPhotoIdx = newPhotoIdx;
 
         var imageSrc = photoPath(currentAlbum.name, currentAlbum.photos[currentPhotoIdx].filename);
@@ -176,7 +176,18 @@
 
           if (currentPhotoIdx % PRELOAD_BATCH_SIZE === 0) {
             console.log("loading images", currentPhotoIdx);
-            loadImages(currentPhotoIdx);
+
+            var upToIdx = Math.min(photoIdx + PRELOAD_BATCH_SIZE, (currentAlbum.photos.length));
+            for (var i = photoIdx; i < upToIdx; i++) {
+              loadImage(i).then(loadedIdx = {
+                if (loadedIdx === currentPhotoIdx) {
+                  console.log("loaded the current photo, setting", loadedIdx);
+                  setCurrentPhoto(loadedIdx);
+                } else {
+                  console.log("loaded a noncurrent photo", loadedIdx);
+                }
+              });
+            }
           }
           return;
         }
@@ -208,25 +219,17 @@
         }
       }
 
-      function loadImages(photoIdx) {
-        var upToIdx = Math.min(photoIdx + PRELOAD_BATCH_SIZE, (currentAlbum.photos.length))
-        for (var i = photoIdx; i < upToIdx; i++) {
-          var imageSrc = photoPath(currentAlbum.name, currentAlbum.photos[i].filename);
-          if (images[imageSrc] !== undefined) { continue; }
+      async function loadImage(photoIdx) {
+        var imageSrc = photoPath(currentAlbum.name, currentAlbum.photos[photoIdx].filename);
 
+        return new Promise((resolve, reject) => {
+          if (images[imageSrc] !== undefined) { resolve(photoIdx); }
           var img = new Image();
-          img.dataset.index = i;
-          img.onload = function() {
-            if (img.dataset.index === currentPhotoIdx) {
-              console.log("loaded and current photo, setting", img.dataset.index);
-              setCurrentPhoto(img.dataset.index);
-            } else {
-              console.log("loaded but not current, ignoring", img.dataset.index);
-            };
-          }
+          img.onload = function() { resolve(photoIdx) };
+          img.onerror = reject;
           img.src = imageSrc;
           images[imageSrc] = img;
-        }
+        });
       }
 
       function albumMetadataPath(albumName) {
