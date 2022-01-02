@@ -225,10 +225,12 @@
         return new Promise((resolve, reject) => {
           if (images[imageSrc] !== undefined) { resolve(photoIdx); }
           var img = new Image();
-          img.onload = function() { resolve(photoIdx) };
+          img.onload = function() {
+            images[imageSrc] = img;
+            resolve(photoIdx)
+          };
           img.onerror = reject;
           img.src = imageSrc;
-          images[imageSrc] = img;
         });
       }
 
