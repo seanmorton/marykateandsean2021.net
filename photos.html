@@ -155,7 +155,7 @@
           .then(response => response.json())
           .then(album => {
             currentAlbum = album;
-            currentPhotoIdx = setCurrentPhoto(0);
+            setCurrentPhoto(0);
             albumSelect.style.display = 'none';
             photoAlbum.style.display = 'block';
           });
@@ -184,7 +184,7 @@
                   console.log("loaded the current photo, setting", loadedIdx);
                   setCurrentPhoto(loadedIdx);
                 } else {
-                  console.log("loaded a noncurrent photo", loadedIdx);
+                  console.log("loaded a noncurrent photo", loadedIdx, currentPhotoIdx);
                 }
               });
             }
