@@ -53,8 +53,8 @@
     <div class="contentSection">
       <h3>October 9, 2021, Chico, CA</h3>
       <p class="center">
-        You're invited to celebrate the marriage of Mary Kate and Sean! There's only<br />
-        <span id=countdown>...</span> to go.
+        Thank you for celebrating the marriage of Mary Kate and Sean! They've now been happily married for <br />
+        <span id=countdown>...</span> and counting!
       </p>
       <br />
       <p class="center">Please visit the <a href="schedule.html">Details</a> page for event information.</p>
@@ -77,29 +77,19 @@
 <footer>
   <script>
     // Courtesy of https://www.w3schools.com/howto/howto_js_countdown.asp
-    var countDownDate = new Date("2021-10-09T15:00:00-07:00").getTime();
+    var weddingDate = new Date("2021-10-09T15:00:00-07:00").getTime();
 
     var timer = setInterval(function() {
       var now = new Date().getTime();
-      var distance = countDownDate - now;
+      var distance = now - weddingDate;
 
       var days = Math.floor(distance / (1000 * 60 * 60 * 24));
       var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      if (distance >= 0) {
-        document.getElementById("countdown").innerHTML = days + " days, " + hours + " hours, "
-        + minutes + " minutes, and " + seconds + " seconds";
-      } else { // If the count down is finished, write some text
-        clearInterval(timer);
-        var oneDayAgo = -(1000 * 60 * 60 * 24);
-        if (distance >= oneDayAgo) {
-          document.getElementById("countdown").innerHTML = "Congrats Mary Kate & Sean, it's time to party!!!!";
-        } else {
-          document.getElementById("countdown").innerHTML = "What a great wedding. Thank you for attending!";
-        }
-      }
+      document.getElementById("countdown").innerHTML = days + " days, " + hours + " hours, "
+       + minutes + " minutes, " + seconds + " seconds";
     }, 1000);5
   </script>
 </footer>
