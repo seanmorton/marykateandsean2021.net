@@ -248,7 +248,7 @@ function handleClick(evt) {
     // start the timer and autosave on user's first click
     if(!counter && clickDest !== 'resetButton') {
         startTimer();
-        startAutoSave();
+        // TODO re-deploy high score server enablestartAutoSave();
     }
 
     if (clickDest.includes('stack')) {
